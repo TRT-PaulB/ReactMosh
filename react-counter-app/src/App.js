@@ -43,7 +43,11 @@ class App extends Component {
   render() {
     return (
       <React.Fragment>
-        <NavBar />
+        <NavBar
+          numItems={
+            this.state.counters.filter(counter => counter.value > 0).length
+          }
+        />
         <main className="container">
           <Counters
             onReset={this.handleReset}
@@ -58,3 +62,9 @@ class App extends Component {
 }
 
 export default App;
+
+// this.state.counters.forEach(counter =>
+//   counter.reduce(function(y, x) {
+//     return y.value + x.value;
+//   }, 0)
+// )}
