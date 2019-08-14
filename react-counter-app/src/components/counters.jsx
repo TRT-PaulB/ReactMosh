@@ -11,24 +11,46 @@ class Counters extends Component {
     ]
   };
 
+  handleIncrement = counter => {
+    //console.log(counter);
+
+    const counters = [...this.state.counters];
+    const counterIndex = counters.indexOf(counter);
+    counters[counterIndex] = counter;
+    counters[counterIndex].value++;
+    this.setState({ counters });
+  };
+
   handleDelete = counterId => {
-    console.log("event handler log: " + counterId);
+    //console.log("event handler log: " + counterId);
     const counters = this.state.counters.filter(
       counter => counter.id !== counterId
     );
     this.setState({ counters });
   };
 
+  handleReset = () => {
+    console.log("handle reset");
+    const counters = this.state.counters.map(c => {
+      c.value = 0; // assigning
+      return c;
+    });
+    this.setState({ counters });
+  };
+
   render() {
     return (
       <React.Fragment>
+        <button onClick={this.handleReset} className="btn-primary btn-sm m-2">
+          Reset
+        </button>
         {this.state.counters.map(counter => (
           <div key={counter.id}>
             <Counter
               key={counter.id}
-              value={counter.value}
-              id={counter.id}
               onDelete={this.handleDelete}
+              onIncrement={this.handleIncrement}
+              counter={counter}
             />
           </div>
         ))}
