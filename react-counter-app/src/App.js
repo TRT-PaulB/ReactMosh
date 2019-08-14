@@ -13,13 +13,25 @@ class App extends Component {
     ]
   };
 
-  handleIncrement = counter => {
-    //console.log(counter);
+  constructor(props) {
+    // props can only be accessed here if they have an argument (automatic)
+    super(props); // all call super with props argument
+    //console.log("App constructor....", props);
+  }
 
+  handleIncrement = counter => {
     const counters = [...this.state.counters];
     const counterIndex = counters.indexOf(counter);
     counters[counterIndex] = counter;
     counters[counterIndex].value++;
+    this.setState({ counters });
+  };
+
+  handleDecrement = counter => {
+    const counters = [...this.state.counters];
+    const counterIndex = counters.indexOf(counter);
+    counters[counterIndex] = counter;
+    counters[counterIndex].value--;
     this.setState({ counters });
   };
 
@@ -53,11 +65,17 @@ class App extends Component {
             onReset={this.handleReset}
             onDelete={this.handleDelete}
             onIncrement={this.handleIncrement}
+            onDecrement={this.handleDecrement}
             counters={this.state.counters}
           />
         </main>
       </React.Fragment>
     );
+  }
+
+  componentDidMount() {
+    // const counters = AJAX call to the server
+    //this.setState({counters});
   }
 }
 
