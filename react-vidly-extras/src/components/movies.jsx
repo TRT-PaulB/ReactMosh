@@ -2,11 +2,13 @@ import React, { Component } from "react";
 import { getMovies } from "../services/fakeMovieService";
 import Like from "../common/like";
 import Pagination from "../common/pagination";
+import {paginate} from "../utils/pageSplicer";
 
 class Movies extends Component {
   state = {
     movies: getMovies(),
-    numItemsPerPage: 4
+    numItemsPerPage: 4,
+    currentPage: 1
   };
 
   handleDelete = movie => {
@@ -23,13 +25,16 @@ class Movies extends Component {
     this.setState({ movies });
   };
 
-  handlePageChange = () => {
-    console.log("handling page change");
+  handlePageChange = page => {
+    console.log("handling page change - page clicked = " + page);
+    this.setState({currentPage: page});
   }
 
 
   render() {
     const { length: moviesCount } = this.state.movies;
+    const { movies, currentPage, numItemsPerPage } = this.state;
+    const pagedMovies = paginate(movies, currentPage, numItemsPerPage);
 
     if (moviesCount === 0) return <p>No moves to display</p>;
     return (
@@ -47,14 +52,17 @@ class Movies extends Component {
             </tr>
           </thead>
           <tbody>
-            {this.state.movies.map(movie => (
+            {pagedMovies.map(movie => (
               <tr key={movie._id}>
                 <td>{movie.title}</td>
                 <td>{movie.genre.name}</td>
                 <td>{movie.numberInStock}</td>
                 <td>{movie.dailyRentalRate}</td>
                 <td>
-                  <Like liked={movie.liked} onLikeOpinion={this.handleLiked} movie={movie} onPageChange={this.handlePageChange}/>   
+                  <Like liked={movie.liked} 
+                        onLikeOpinion={this.handleLiked} 
+                        movie={movie} 
+                        />   
                 </td>
                 <td>
                   <button
@@ -68,7 +76,7 @@ class Movies extends Component {
             ))}
           </tbody>
         </table>
-        <Pagination totalItems={moviesCount} numItemsPerPage={this.state.numItemsPerPage} />
+        <Pagination currentPage={this.state.currentPage} totalItems={moviesCount} numItemsPerPage={this.state.numItemsPerPage} onPageChange={this.handlePageChange}/>
       </React.Fragment>
     );
   }
