@@ -10,7 +10,7 @@ class Like extends Component {
       iconVal += "-broken" 
     }
     
-    return <FontAwesomeIcon onClick={() => onLikeOpinion(movie)} icon={iconVal} />;
+    return <FontAwesomeIcon style={{cursor: "pointer"}}onClick={() => onLikeOpinion(movie)} icon={iconVal} />;
 
     // ALTERNATIVE:  throw DOM event (rather than custom event above)   
     //               return <FontAwesomeIcon onClick={onClick} icon={iconVal} />;
