@@ -47,8 +47,7 @@ class Movies extends Component {
                 <td>{movie.numberInStock}</td>
                 <td>{movie.dailyRentalRate}</td>
                 <td>
-                   <Like liked={movie.liked} onLikeOpinion={this.handleLiked} movie={movie}/>
-                   
+                  <Like liked={movie.liked} onLikeOpinion={this.handleLiked} movie={movie}/>   
                 </td>
                 <td>
                   <button
@@ -68,3 +67,12 @@ class Movies extends Component {
 }
 
 export default Movies;
+
+// ALTERNATIVE - receives the DOMN event from like.jsx and then rethrows
+// <Like liked={movie.liked} onClick={() => this.handleLiked(movie)} movie={movie}/>
+
+
+                   
+
+
+
