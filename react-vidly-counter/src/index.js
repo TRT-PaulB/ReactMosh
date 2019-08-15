@@ -4,11 +4,17 @@ import "./index.css";
 import App from "./App";
 import * as serviceWorker from "./serviceWorker";
 
-///
 import "bootstrap/dist/css/bootstrap.css";
-//import "font-awesome/dist/css/font-awesome.css";
-/////
-import Counter from "./components/counter";
+
+// FONT AWESOME [start]
+import { library } from '@fortawesome/fontawesome-svg-core'
+//import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faStroopwafel, faHeart, faHeartBroken } from '@fortawesome/free-solid-svg-icons'
+library.add(faStroopwafel)
+library.add(faHeart)
+library.add(faHeartBroken)
+//https://github.com/FortAwesome/Font-Awesome/tree/master/js-packages/%40fortawesome/free-solid-svg-icons
+// FONT AWESOME [end]
 
 ReactDOM.render(<App />, document.getElementById("root"));
 
