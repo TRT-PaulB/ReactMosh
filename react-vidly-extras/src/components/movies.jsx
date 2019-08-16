@@ -17,7 +17,8 @@ class Movies extends Component {
   // it will takle time to get movies and genres, so get runtime error if we try load page into dom without his data
   // componentDidMount() is triggered when loading the DOM
   componentDidMount() {
-    this.setState({movies: getMovies(), genres: getGenres()});
+    const genres = [{name: 'All Genres'}, ...getGenres()];
+    this.setState({movies: getMovies(), genres});  // ie {genres: genres}
   }
 
   handleDelete = movie => {
@@ -38,11 +39,6 @@ class Movies extends Component {
   }
 
   handleItemSelect = genre => {
-    console.log("item selected...console", genre);
-
-    // const filteredMovies = getMovies().filter(movie => movie._id === genre.__id);
-    // this.setState({selectedGenre: genre, movies: filteredMovies});
-
     this.setState({selectedGenre: genre});
   }
 
@@ -50,10 +46,13 @@ class Movies extends Component {
     const { length: moviesCount } = this.state.movies;
     const { movies, currentPage, numItemsPerPage, selectedGenre } = this.state;
 
-    const filteredMovies = selectedGenre ? movies.filter(movie => movie.genre._id === selectedGenre._id) : movies;
+    const filteredMovies = selectedGenre && selectedGenre._id
+                              ? movies.filter(movie => movie.genre._id === selectedGenre._id) 
+                              : movies;
+    
     const pagedMovies = paginate(filteredMovies, currentPage, numItemsPerPage);
 
-    if (moviesCount === 0) return <p>No moves to display</p>;
+    if (moviesCount === 0) return <p>No movies in the database</p>;
     return (
       <div className="row">
 
@@ -66,7 +65,7 @@ class Movies extends Component {
         </div>
         
         <div className="col">
-          <p>Showing {moviesCount} movies in the database</p>
+          <p>Showing {filteredMovies.length} movies in the database</p>
           <table className="table">
             <thead>
               <tr>
