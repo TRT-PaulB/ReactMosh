@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React from "react";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
 // convert likeClassVersion.jsx into a stateless functional component
