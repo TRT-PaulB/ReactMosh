@@ -18,7 +18,7 @@ class Movies extends Component {
   // it will takle time to get movies and genres, so get runtime error if we try load page into dom without his data
   // componentDidMount() is triggered when loading the DOM
   componentDidMount() {
-    const genres = [{name: 'All Genres'}, ...getGenres()];
+    const genres = [{_id: "", name: 'All Genres'}, ...getGenres()];
     this.setState({movies: getMovies(), genres});  // ie {genres: genres}
   }
 
@@ -43,6 +43,11 @@ class Movies extends Component {
     this.setState({selectedGenre: genre, currentPage: 1});
   }
 
+  handleSorting = column => {
+    console.log("handle sorting.....col = " + column);
+    this.setState({sortColumn: { column, order: 'asc'}});   // ie column: column
+  }   // https://codewithmosh.com/courses/357787/lectures/5706693
+
   render() {
     const { length: moviesCount } = this.state.movies;
     const { movies, currentPage, numItemsPerPage, selectedGenre } = this.state;
@@ -58,7 +63,7 @@ class Movies extends Component {
       <div className="row">
 
         <div className="col-2">
-          <ListGroup items={this.state.genres} 
+            <ListGroup items={this.state.genres} 
                       textProperty="name" 
                       valueProperty="_id" 
                       onItemSelect={this.handleItemSelect}
@@ -67,8 +72,11 @@ class Movies extends Component {
         
         <div className="col">
           <p>Showing {filteredMovies.length} movies in the database</p>
-          <MoviesTable movies={pagedMovies} onLike={this.handleLiked} onDelete={this.handleDelete}/>
-          <Pagination currentPage={this.state.currentPage} totalItems={filteredMovies.length} numItemsPerPage={this.state.numItemsPerPage} onPageChange={this.handlePageChange}/>
+          <MoviesTable movies={pagedMovies} onLike={this.handleLiked} 
+                       onDelete={this.handleDelete} onSort={this.handleSorting}/>
+          <Pagination currentPage={this.state.currentPage} totalItems={filteredMovies.length} 
+                      numItemsPerPage={this.state.numItemsPerPage} 
+                      onPageChange={this.handlePageChange}/>
         </div>
       </div>
     );
