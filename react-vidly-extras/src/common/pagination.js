@@ -2,12 +2,8 @@ import React from 'react';
 import _ from 'lodash';  // lodash is optimized version of the underscore javascript library
 
 const Pagination = (props) => {  
-    // nav>ul.pagination>li.page-item>a.page-link; 
-
+    // markup shorthand not working.....nav>ul.pagination>li.page-item>a.page-link; 
     const {numItemsPerPage, totalItems, onPageChange, currentPage} = props;
-
-console.log(currentPage);
-
     const numPages = Math.ceil(totalItems / numItemsPerPage);
     if (numPages === 1) return null;
     const pages = _.range(1, numPages + 1);

@@ -12,7 +12,6 @@ class Movies extends Component {
   };
 
   handleDelete = movie => {
-    console.log("deleting here....");
     const movies = this.state.movies.filter(mov => mov._id !== movie._id);
     this.setState({ movies });
   };
@@ -26,10 +25,8 @@ class Movies extends Component {
   };
 
   handlePageChange = page => {
-    console.log("handling page change - page clicked = " + page);
     this.setState({currentPage: page});
   }
-
 
   render() {
     const { length: moviesCount } = this.state.movies;
