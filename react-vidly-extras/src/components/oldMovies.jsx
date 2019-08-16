@@ -1,11 +1,10 @@
 import React, { Component } from "react";
 import { getMovies } from "../services/fakeMovieService";
 import { getGenres } from "../services/fakeGenreService";
-//import Like from "../common/like";
+import Like from "../common/like";
 import Pagination from "../common/pagination";
 import {paginate} from "../utils/pageSplicer";
 import ListGroup from "../common/listgroup";
-import MoviesTable from "../common/moviesTable";
 
 class Movies extends Component {
   state = {
@@ -67,7 +66,42 @@ class Movies extends Component {
         
         <div className="col">
           <p>Showing {filteredMovies.length} movies in the database</p>
-          <MoviesTable movies={pagedMovies} onLike={this.handleLiked} onDelete={this.handleDelete}/>
+          <table className="table">
+            <thead>
+              <tr>
+                <th>Title</th>
+                <th>Genre</th>
+                <th>Stock</th>
+                <th>Rate</th>
+                <th>Liked</th>
+                <th />
+              </tr>
+            </thead>
+            <tbody>
+              {pagedMovies.map(movie => (
+                <tr key={movie._id}>
+                  <td>{movie.title}</td>
+                  <td>{movie.genre.name}</td>
+                  <td>{movie.numberInStock}</td>
+                  <td>{movie.dailyRentalRate}</td>
+                  <td>
+                    <Like liked={movie.liked} 
+                          onLikeOpinion={this.handleLiked} 
+                          movie={movie} 
+                          />   
+                  </td>
+                  <td>
+                    <button
+                      onClick={() => this.handleDelete(movie)}
+                      className="btn btn-danger btn-sm"
+                    >
+                      Delete
+                    </button>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
           <Pagination currentPage={this.state.currentPage} totalItems={filteredMovies.length} numItemsPerPage={this.state.numItemsPerPage} onPageChange={this.handlePageChange}/>
         </div>
       </div>
