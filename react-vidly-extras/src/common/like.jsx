@@ -7,7 +7,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 //                           TO between "const Like = (props) => {"    and "}" (removing return statement)
 // 3) remember to supply props as an argument ('this' keyword cannot be used)      
 const Like = (props) => {
-  const { liked, movie, onLikeOpinion, onClick } = props;
+  const { liked, movie, onLikeOpinion } = props;
   
     let iconVal = "heart";
     if (!liked) {

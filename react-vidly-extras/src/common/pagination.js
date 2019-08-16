@@ -1,5 +1,6 @@
 import React from 'react';
 import _ from 'lodash';  // lodash is optimized version of the underscore javascript library
+import PropTypes from 'prop-types';
 
 const Pagination = (props) => {  
     // markup shorthand not working.....nav>ul.pagination>li.page-item>a.page-link; 
@@ -20,6 +21,16 @@ const Pagination = (props) => {
             </nav>;
 };
  
+
+// checks that properties input into this component conform to the correct type, and mandatory status
+// note that browser warnings only show up in developing mode
+Pagination.propTypes = {
+    totalItems: PropTypes.number.isRequired,
+    numItemsPerPage: PropTypes.number.isRequired,
+    currentPage: PropTypes.number.isRequired,
+    onPageChange: PropTypes.func.isRequired
+};
+
 export default Pagination;
 
 
