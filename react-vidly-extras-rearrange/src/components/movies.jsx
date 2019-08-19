@@ -75,7 +75,13 @@ class Movies extends Component {
 
   render() {
     const { length: moviesCount } = this.state.movies;
-    const { sortColumn } = this.state;
+    const {
+      sortColumn,
+      selectedGenre,
+      currentPage,
+      numItemsPerPage,
+      genres
+    } = this.state;
     const { data: movies, totalCount } = this.getPagedData();
 
     if (moviesCount === 0) return <p>No movies in the database</p>;
@@ -83,11 +89,11 @@ class Movies extends Component {
       <div className="row">
         <div className="col-2">
           <ListGroup
-            items={this.state.genres}
+            items={genres}
             textProperty="name"
             valueProperty="_id"
             onItemSelect={this.handleItemSelect}
-            selectedItem={this.state.selectedGenre}
+            selectedItem={selectedGenre}
           />
         </div>
 
@@ -101,9 +107,9 @@ class Movies extends Component {
             sortColumn={sortColumn}
           />
           <Pagination
-            currentPage={this.state.currentPage}
+            currentPage={currentPage}
             totalItems={totalCount}
-            numItemsPerPage={this.state.numItemsPerPage}
+            numItemsPerPage={numItemsPerPage}
             onPageChange={this.handlePageChange}
           />
         </div>
