@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import Like from "../common/like";
 import TableHeader from "../common/tableheader";
+import TableBody from "../common/tableBody";
 
 // INPUT INTERFACE
 // columns: array
@@ -14,12 +15,37 @@ class MoviesTable extends Component {
     { name: "genre.name", label: "Genre" },
     { name: "numberInStock", label: "Stock" },
     { name: "dailyRentalRate", label: "Rate" },
-    { name: "liked", label: "Liked" },
-    { key: "delete" } // use this to provide a key on a blank header, ie for delete
+    {
+      name: "liked",
+      label: "Liked",
+      content: (
+        movie // function takes a movie object and returns a react element
+      ) => (
+        <Like
+          liked={movie.liked}
+          onLike={() => this.props.onLike(movie)}
+          movie={movie}
+        />
+      )
+    },
+    {
+      key: "delete",
+      content: movie => (
+        <button
+          onClick={() => this.props.onDelete(movie)}
+          className="btn btn-danger btn-sm"
+          movie={movie}
+        >
+          Delete{" "}
+        </button>
+      )
+    }
+    // use to provide a key on a blank header, ie for delete
   ];
 
+  // use generic components where possible, and avoid having mixed layers of abstraction
   render() {
-    const { movies, onLike, onDelete, onSort, sortColumn } = this.props;
+    const { movies, onSort, sortColumn } = this.props;
 
     return (
       <table className="table">
@@ -28,32 +54,7 @@ class MoviesTable extends Component {
           sortColumn={sortColumn}
           onSort={onSort}
         />
-        <tbody>
-          {movies.map(movie => (
-            <tr key={movie._id}>
-              <td>{movie.title}</td>
-              <td>{movie.genre.name}</td>
-              <td>{movie.numberInStock}</td>
-              <td>{movie.dailyRentalRate}</td>
-              <td>
-                <Like
-                  liked={movie.liked}
-                  onLike={() => onLike(movie)}
-                  movie={movie}
-                />
-              </td>
-              <td>
-                <button
-                  onClick={() => onDelete(movie)}
-                  className="btn btn-danger btn-sm"
-                  movie={movie}
-                >
-                  Delete
-                </button>
-              </td>
-            </tr>
-          ))}
-        </tbody>
+        <TableBody data={movies} columns={this.columns} />
       </table>
     );
   }
