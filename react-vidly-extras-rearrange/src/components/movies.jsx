@@ -46,21 +46,6 @@ class Movies extends Component {
 
   handleSorting = sortColumn => {
     this.setState({ sortColumn });
-    // OLD IMPL
-    // const sortColumn = { ...this.state.sortColumn };
-    // if (sortColumn.column === column) {
-    //   // this is a direction change on the existing column sort
-    //   sortColumn.order = sortColumn.order === "asc" ? "desc" : "asc";
-    //   sortColumn.column = column;
-    // } else {
-    //   // this is a new column sort in ascending order
-    //   sortColumn.order = "asc";
-    //   sortColumn.column = column;
-    // }
-    // this.setState({
-    //   //sortColumn: { sortColumn } // not clear why this line would not work...
-    //   sortColumn: { column: sortColumn.column, order: sortColumn.order }
-    // });
   };
 
   render() {
@@ -121,6 +106,3 @@ class Movies extends Component {
 }
 
 export default Movies;
-
-// ALTERNATIVE - receives the DOMN event from like.jsx and then rethrows
-// <Like liked={movie.liked} onClick={() => this.handleLiked(movie)} movie={movie}/>

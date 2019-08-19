@@ -8,21 +8,20 @@ import Like from "../common/like";
 // 4) as there is no props argumnet automatically, use this.props
 
 class MoviesTable extends Component {
-  // OLD
-  //   raiseSort = column => {
-  //     const sortColumn = { ...this.props.sortColumn };
-  //     if (sortColumn.column === column) {
-  //       // this is a direction change on the existing column sort
-  //       sortColumn.order = sortColumn.order === "asc" ? "desc" : "asc";
-  //       sortColumn.column = column;
-  //     } else {
-  //       // this is a new column sort in ascending order
-  //       sortColumn.order = "asc";
-  //       sortColumn.column = column;
-  //     }
+  raiseSort = column => {
+    const sortColumn = { ...this.props.sortColumn };
+    if (sortColumn.column === column) {
+      // this is a direction change on the existing column sort
+      sortColumn.order = sortColumn.order === "asc" ? "desc" : "asc";
+      sortColumn.column = column;
+    } else {
+      // this is a new column sort in ascending order
+      sortColumn.order = "asc";
+      sortColumn.column = column;
+    }
 
-  //     this.props.onSort(sortColumn); // THIS LINE PASSES BACK sortColumn via onSort function, relating to movies.handleSorting
-  //   };
+    this.props.onSort(sortColumn); // THIS LINE PASSES BACK sortColumn via onSort function, relating to movies.handleSorting
+  };
 
   render() {
     const { movies, onLike, onDelete } = this.props;
