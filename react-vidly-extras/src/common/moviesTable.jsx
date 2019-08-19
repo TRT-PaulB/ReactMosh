@@ -1,46 +1,49 @@
-import React from 'react';
+import React from "react";
 import Like from "../common/like";
 
-const MoviesTable = (props) => {  
-    const {movies, onLike, onDelete, onSort} = props;
-    
-    return (  
+const MoviesTable = props => {
+  const { movies, onLike, onDelete, onSort } = props;
+
+  return (
     <table className="table">
-        <thead>
+      <thead>
         <tr>
-            <th onClick={() => onSort('title')}>Title</th>
-            <th onClick={() => onSort('genre.name')}>Genre</th>
-            <th onClick={() => onSort('numberInStock')}>Stock</th>
-            <th onClick={() => onSort('dailyRentalRate')}>Rate</th>
-            <th onClick={() => onSort('liked')}>Liked</th>
-            <th />
+          <th onClick={() => onSort("title")}>Title</th>
+          <th onClick={() => onSort("genre.name")}>Genre</th>
+          <th onClick={() => onSort("numberInStock")}>Stock</th>
+          <th onClick={() => onSort("dailyRentalRate")}>Rate</th>
+          <th onClick={() => onSort("liked")}>Liked</th>
+          <th />
         </tr>
-        </thead>
-        <tbody>
+      </thead>
+      <tbody>
         {movies.map(movie => (
-            <tr key={movie._id}>
+          <tr key={movie._id}>
             <td>{movie.title}</td>
             <td>{movie.genre.name}</td>
             <td>{movie.numberInStock}</td>
             <td>{movie.dailyRentalRate}</td>
             <td>
-                <Like liked={movie.liked} 
-                    onClick={() => onLike(movie)} 
-                    movie={movie}
-                    />   
+              <Like
+                liked={movie.liked}
+                onLike={() => onLike(movie)}
+                movie={movie}
+              />
             </td>
             <td>
-                <button
+              <button
                 onClick={() => onDelete(movie)}
                 className="btn btn-danger btn-sm"
-                >
+                movie={movie}
+              >
                 Delete
-                </button>
+              </button>
             </td>
-            </tr>
+          </tr>
         ))}
-    </tbody>
-  </table>);
+      </tbody>
+    </table>
+  );
 };
- 
+
 export default MoviesTable;
