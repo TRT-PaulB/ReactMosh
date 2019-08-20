@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import _ from "lodash";
+import { Link } from "react-router-dom";
 
 class TableBody extends Component {
   renderCell = (item, column) => {
@@ -15,13 +16,21 @@ class TableBody extends Component {
   render() {
     const { data, columns } = this.props;
 
+    // HARD CODING FOR NOW...
+
     return (
       <tbody>
         {data.map(item => (
           <tr key={item._id}>
             {columns.map(column => (
               <td key={this.createColumnKey(item, column)}>
-                {this.renderCell(item, column)}
+                {column.name === "title" ? (
+                  <Link to={"/display-movie/" + item._id}>
+                    {this.renderCell(item, column)}
+                  </Link>
+                ) : (
+                  this.renderCell(item, column)
+                )}
               </td>
             ))}
           </tr>
@@ -30,6 +39,7 @@ class TableBody extends Component {
     );
   }
 }
+// WAS: {this.renderCell(item, column)} ******
 
 export default TableBody;
 

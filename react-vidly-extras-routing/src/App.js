@@ -1,14 +1,45 @@
 import React, { Component } from "react";
+import { Route, Switch, Redirect } from "react-router-dom";
+import Customers from "./components/customers";
+import Rentals from "./components/rentals";
 import "./App.css";
-
+import NavBar from "./common/navbar";
 import Movies from "./components/movies";
+import NotFound from "./components/notFound";
+import DisplayMovie from "./components/displayMovie";
 
 class App extends Component {
   render() {
     return (
-      <main className="container">
-        <Movies />
-      </main>
+      <div>
+        <NavBar />
+        <div className="content">
+          <Switch>
+            <Route path="/customers" exact component={Customers} />
+            <Route path="/rentals" exact component={Rentals} />
+            <Route
+              path="/movies"
+              render={props => (
+                <main className="container">
+                  <Movies />
+                </main>
+              )}
+            />
+            <Route
+              path="/"
+              exact
+              render={props => (
+                <main className="container">
+                  <Movies />
+                </main>
+              )}
+            />
+            <Route path="/not-found" component={NotFound} />
+            <Route path="/display-movie/:movieId?" component={DisplayMovie} />
+            <Redirect to="/not-found" />
+          </Switch>
+        </div>
+      </div>
     );
   }
 }
