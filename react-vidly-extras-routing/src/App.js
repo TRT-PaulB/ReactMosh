@@ -25,15 +25,9 @@ class App extends Component {
                 </main>
               )}
             />
-            <Route
-              path="/"
-              exact
-              render={props => (
-                <main className="container">
-                  <Movies />
-                </main>
-              )}
-            />
+
+            <Redirect from="/" exact to="/movies" />
+
             <Route path="/not-found" component={NotFound} />
             <Route path="/display-movie/:movieId?" component={DisplayMovie} />
             <Redirect to="/not-found" />
