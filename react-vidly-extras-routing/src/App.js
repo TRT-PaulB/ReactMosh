@@ -17,14 +17,7 @@ class App extends Component {
           <Switch>
             <Route path="/customers" exact component={Customers} />
             <Route path="/rentals" exact component={Rentals} />
-            <Route
-              path="/movies"
-              render={props => (
-                <main className="container">
-                  <Movies />
-                </main>
-              )}
-            />
+            <Route path="/movies" exact component={Movies} />
 
             <Redirect from="/" exact to="/movies" />
 
