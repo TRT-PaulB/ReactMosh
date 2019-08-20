@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import NavBar from "./components/navbar";
-import { Route, Switch } from "react-router-dom";
+import { Route, Switch, Redirect } from "react-router-dom";
 import Products from "./components/products";
 import Posts from "./components/posts";
 import Home from "./components/home";
@@ -21,9 +21,12 @@ class App extends Component {
               path="/products"
               render={props => <Products sortBy="newest" {...props} />}
             />
-            <Route path="/posts/:year/:month" component={Posts} />
+            <Route path="/posts/:year?/:month?" component={Posts} />
             <Route path="/admin" component={Dashboard} />
-            <Route path="/" component={Home} />
+            <Route path="/not-found" component={NotFound} />
+            <Redirect from="/messages" to="/posts" />
+            <Route path="/" exact component={Home} />
+            <Redirect to="/not-found" />
           </Switch>
         </div>
       </div>
@@ -44,3 +47,17 @@ export default App;
 // notice to access this id=1 in ProductDetails
 // {this.props.match.params.id}
 // now click on products.......
+
+// make option parameters with: ?
+// <Route path="/posts/:year?/:month?" component={Posts} />
+
+// try querySrting on the piosts page...
+// http://localhost:3000/posts/2018/06?sortBy=newest&approved=true
+// note: params on right of ? in url are always optional
+
+// Enter a bad URL to test redirect:
+// http://localhost:3000/bad
+// http://localhost:3000/messages
+
+// example of programmatic navigation from details button back to home
+// see productDetails.handleSave()

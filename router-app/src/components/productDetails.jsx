@@ -2,7 +2,13 @@ import React, { Component } from "react";
 
 class ProductDetails extends Component {
   handleSave = () => {
-    // Navigate to /products
+    // Navigate programmaticlly to /products
+    this.props.history.push("/products");
+
+    // do the same with replace but kill history for backbutton
+    // often used in login pages - ie once the user has logged in,
+    // it would be annoying to take them back to the login page....
+    // this.props.history.replace("/products");
   };
 
   render() {
