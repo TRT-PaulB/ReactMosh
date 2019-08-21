@@ -1,5 +1,7 @@
 import React, { Component } from "react";
 import Input from "../common/input";
+import Joi from "joi"; // npm i joi
+// see: https://www.npmjs.com/package/joi
 
 class LoginForm extends Component {
   state = {
@@ -7,24 +9,34 @@ class LoginForm extends Component {
     errors: {}
   };
 
-  validate = () => {
+  schema = {
+    username: Joi.string()
+      .required()
+      .label("Username"), // .label adds more control, but when omitted it is capialize by default (seemingly)
+    password: Joi.string()
+      .required()
+      .label("Password")
+  };
+
+  validateWithJoi = () => {
+    // params:  binding object, validation definition
+    const option = { abortEarly: false }; // ie do not terminate validation as soon as Joi finds an error
+    const result = Joi.validate(this.state.account, this.schema, option);
+    console.log(result); // useful to examine element
+    if (!result.error) return null; // no Joi error
+
     const errors = {};
-    const { account } = this.state;
-
-    if (account.username.trim() === "") {
-      errors.username = "Username is required";
-    }
-    if (account.password.trim() === "") {
-      errors.password = "Password is required";
+    for (let item of result.error.details) {
+      errors[item.path] = item.message; // creates an errors map / array of different paths (ie. property names)
     }
 
-    return Object.keys(errors).length === 0 ? null : errors;
+    return errors;
   };
 
   handleSubmit = e => {
     e.preventDefault();
 
-    const errors = this.validate();
+    const errors = this.validateWithJoi();
     this.setState({ errors: errors || {} });
 
     if (errors) return;
@@ -32,18 +44,14 @@ class LoginForm extends Component {
     console.log("save to the database");
   };
 
-  validateProperty = input => {
-    const { name, value } = input;
+  validateProperty = ({ name, value }) => {
+    // use compouted properties in ES6
+    const obj = { [name]: value }; // name of input property supplied dynamically
+    const schema = { [name]: this.schema[name] };
+    const { error } = Joi.validate(obj, schema); // note we want to abort early, so as not to display all errors at once
 
-    if (name === "username") {
-      if (value.trim() === "") return "Username is required";
-      // add in further validation for the specific input component argument
-    }
-
-    if (name === "password") {
-      if (value.trim() === "") return "Password is required";
-      // add in further validation for the specific input component argument
-    }
+    // if there is an error on this input component, return the first error details string
+    return error ? error.details[0].message : null;
   };
 
   handleChange = ({ currentTarget: input }) => {
@@ -80,11 +88,16 @@ class LoginForm extends Component {
             error={errors.password}
           />
 
-          <button className="btn btn-primary">Login</button>
+          <button disabled={this.validateWithJoi()} className="btn btn-primary">
+            Login
+          </button>
         </form>
       </React.Fragment>
     );
   }
 }
+
+// NOTE: disabled={this.validateWithJoi()}
+//       if result contains an object, that equates to true, else if no object it is false
 
 export default LoginForm;
