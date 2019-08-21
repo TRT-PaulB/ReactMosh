@@ -3,9 +3,17 @@ import Input from "../common/input";
 
 class LoginForm extends Component {
   state = {
-    account: { username: "", password: "" },
+    // REACT: applying to state means we can be faithful to a single source of truth
+    account: { username: "", password: "" }, // control the elements, ie not null / undefined
     errors: {}
   };
+
+  // Note could call a function and call:    errors.find(e => e.name === 'username')
+  // but not good practice
+  // COMPARE TO setting an object:
+  //   errors: {
+  //     username: "username field is invalid"
+  //   }
 
   validate = () => {
     const errors = {};
@@ -18,6 +26,7 @@ class LoginForm extends Component {
       errors.password = "Password is required";
     }
 
+    // return null if there is no data
     return Object.keys(errors).length === 0 ? null : errors;
   };
 
@@ -25,8 +34,10 @@ class LoginForm extends Component {
     e.preventDefault();
 
     const errors = this.validate();
+    //console.log("errors", errors);
     this.setState({ errors: errors || {} });
 
+    // tests to check if errors is NULL
     if (errors) return;
 
     console.log("save to the database");
@@ -47,11 +58,13 @@ class LoginForm extends Component {
   };
 
   handleChange = ({ currentTarget: input }) => {
+    // validate changes as they are entered [start]
     const errors = { ...this.state.errors };
-    const errorMsg = this.validateProperty(input);
+    const errorMsg = this.validateProperty(input); // get error msg for a particular field as it is being typed
 
     if (errorMsg) errors[input.name] = errorMsg;
-    else delete errors[input.name];
+    else delete errors[input.name]; // note how just 1 of these errors can be deleted with this syntax
+    // validate changes as they are entered [end]
 
     const account = { ...this.state.account };
     account[input.name] = input.value;
