@@ -1,15 +1,18 @@
 import React, { Component } from "react";
 
 class DisplayMovie extends Component {
-  handleSave = () => {
-    this.props.history.push("/movies");
-  };
-
   render() {
+    const { match, history } = this.props;
+
     return (
       <React.Fragment>
-        <h1>Movie Form {this.props.match.params.movieId}</h1>
-        <button onClick={this.handleSave}>Save</button>
+        <h1>Movie Form {match.params.movieId}</h1>
+        <button
+          className="btn btn-primary"
+          onClick={() => history.push("/movies")}
+        >
+          Save
+        </button>
       </React.Fragment>
     );
   }

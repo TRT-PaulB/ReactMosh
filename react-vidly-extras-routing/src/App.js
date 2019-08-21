@@ -2,16 +2,16 @@ import React, { Component } from "react";
 import { Route, Switch, Redirect } from "react-router-dom";
 import Customers from "./components/customers";
 import Rentals from "./components/rentals";
-import "./App.css";
 import NavBar from "./common/navbar";
 import Movies from "./components/movies";
 import NotFound from "./components/notFound";
 import DisplayMovie from "./components/displayMovie";
+import "./App.css";
 
 class App extends Component {
   render() {
     return (
-      <div>
+      <React.Fragment>
         <NavBar />
         <div className="content">
           <Switch>
@@ -22,13 +22,15 @@ class App extends Component {
             <Redirect from="/" exact to="/movies" />
 
             <Route path="/not-found" component={NotFound} />
-            <Route path="/display-movie/:movieId?" component={DisplayMovie} />
+            <Route path="/movies/:movieId?" component={DisplayMovie} />
             <Redirect to="/not-found" />
           </Switch>
         </div>
-      </div>
+      </React.Fragment>
     );
   }
 }
 
 export default App;
+
+// note: could also use <div className="content">

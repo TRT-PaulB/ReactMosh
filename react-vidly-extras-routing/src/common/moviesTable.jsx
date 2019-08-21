@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import Like from "./like";
 import Table from "./table";
+import { Link } from "react-router-dom";
 
 // INPUT INTERFACE
 // columns: array
@@ -10,7 +11,13 @@ import Table from "./table";
 class MoviesTable extends Component {
   columns = [
     // note that this value will not change in the lifecycle of this component, so no need to put in state
-    { name: "title", label: "Title" },
+    // title, liked and delete use content to supply react component to Table / TableBody
+    {
+      name: "title",
+      label: "Title",
+      content: movie => <Link to={`/movies/${movie._id}`}>{movie.title}</Link>
+    },
+
     { name: "genre.name", label: "Genre" },
     { name: "numberInStock", label: "Stock" },
     { name: "dailyRentalRate", label: "Rate" },
