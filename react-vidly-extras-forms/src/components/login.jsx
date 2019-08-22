@@ -5,7 +5,7 @@ import Joi from "joi"; // npm i joi
 
 class LoginForm extends Component {
   state = {
-    account: { username: "", password: "" },
+    data: { username: "", password: "" },
     errors: {}
   };
 
@@ -21,7 +21,7 @@ class LoginForm extends Component {
   validateWithJoi = () => {
     // params:  binding object, validation definition
     const option = { abortEarly: false }; // ie do not terminate validation as soon as Joi finds an error
-    const result = Joi.validate(this.state.account, this.schema, option);
+    const result = Joi.validate(this.state.data, this.schema, option);
     console.log(result); // useful to examine element
     if (!result.error) return null; // no Joi error
 
@@ -61,13 +61,13 @@ class LoginForm extends Component {
     if (errorMsg) errors[input.name] = errorMsg;
     else delete errors[input.name];
 
-    const account = { ...this.state.account };
-    account[input.name] = input.value;
-    this.setState({ account, errors });
+    const data = { ...this.state.data };
+    data[input.name] = input.value;
+    this.setState({ data, errors });
   };
 
   render() {
-    const { account, errors } = this.state;
+    const { data, errors } = this.state;
     return (
       <React.Fragment>
         <h1>Login</h1>
@@ -75,7 +75,7 @@ class LoginForm extends Component {
           <Input
             name="username"
             label="Username"
-            value={account.username}
+            value={data.username}
             onChange={this.handleChange}
             error={errors.username}
           />
@@ -83,7 +83,7 @@ class LoginForm extends Component {
           <Input
             name="password"
             label="Password"
-            value={account.password}
+            value={data.password}
             onChange={this.handleChange}
             error={errors.password}
           />
