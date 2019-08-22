@@ -6,6 +6,7 @@ import { paginate } from "../utils/pageSplicer";
 import ListGroup from "../common/listgroup";
 import MoviesTable from "../common/moviesTable";
 import _ from "lodash"; // used for sorting
+import { Link } from "react-router-dom";
 
 class Movies extends Component {
   state = {
@@ -98,6 +99,13 @@ class Movies extends Component {
         </div>
 
         <div className="col">
+          <Link
+            to="/movies/new"
+            className="btn btn-primary"
+            style={{ marginBottom: 20 }}
+          >
+            Create New Movie
+          </Link>
           <p>Showing {totalCount} movies in the database</p>
           <MoviesTable
             movies={movies}
@@ -117,5 +125,18 @@ class Movies extends Component {
     );
   }
 }
+//
+
+/* 
+ALTERNATIVE IS A BUTTON:
+
+<button
+            className="btn btn-primary"
+            onClick={() => this.props.history.push("/movies/new")}
+            style={{ marginBottom: 20 }}
+          >
+            Create New Movie
+          </button>
+*/
 
 export default Movies;

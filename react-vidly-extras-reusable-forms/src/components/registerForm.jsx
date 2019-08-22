@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React from "react";
 import Joi from "joi";
 import Form from "../common/form";
 
@@ -12,6 +12,7 @@ class RegisterForm extends Form {
     username: Joi.string()
       .required()
       .label("Username")
+      .min(1)
       .email({ minDomainAtoms: 2 }),
     password: Joi.string()
       .required()
@@ -36,16 +37,6 @@ username: Joi.string().alphanum().min(3).max(30).required(),
     // this.state.data.username
     // this.state.data.password
     // this.state.data.name
-
-    console.log(
-      "save to the database\n" +
-        "\nUsername: " +
-        this.state.data.username +
-        "\nPassword: " +
-        this.state.data.password +
-        "\nName: " +
-        this.state.data.name
-    );
   };
 
   render() {

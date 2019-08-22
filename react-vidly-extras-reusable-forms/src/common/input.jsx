@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React from "react";
 
 // WAS name, label, value, type, error, onChange
 // BUT use rest operator to get other properties from the rest object where they are identical

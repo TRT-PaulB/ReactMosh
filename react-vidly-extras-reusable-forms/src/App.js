@@ -7,7 +7,7 @@ import Movies from "./components/movies";
 import LoginForm from "./components/login";
 import RegisterForm from "./components/registerForm";
 import NotFound from "./components/notFound";
-import DisplayMovie from "./components/displayMovie";
+import DisplayMovieForm from "./components/displayMovie";
 import "./App.css";
 
 class App extends Component {
@@ -26,7 +26,8 @@ class App extends Component {
             <Redirect from="/" exact to="/movies" />
 
             <Route path="/not-found" component={NotFound} />
-            <Route path="/movies/:movieId?" component={DisplayMovie} />
+
+            <Route path="/movies/:movieId?" component={DisplayMovieForm} />
             <Redirect to="/not-found" />
           </Switch>
         </div>
@@ -34,7 +35,7 @@ class App extends Component {
     );
   }
 }
-
+// <Route path="/movies/new" component={DisplayMovieForm} />
 export default App;
 
 // note: could also use <div className="content">

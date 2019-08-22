@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import Joi from "joi";
 import Input from "./input";
+import Select from "./select";
 
 class Form extends Component {
   state = {
@@ -10,6 +11,8 @@ class Form extends Component {
 
   // JOI:  https://www.npmjs.com/package/joi
   validateWithJoi = () => {
+    console.log("validating with joi");
+
     // params:  binding object, validation definition
     const option = { abortEarly: false }; // ie do not terminate validation as soon as Joi finds an error
     const result = Joi.validate(this.state.data, this.schema, option);
@@ -78,8 +81,22 @@ class Form extends Component {
       />
     );
   };
-}
 
+  renderSelect = (propName, label, autoFocus, options) => {
+    const { data, errors } = this.state;
+    return (
+      <Select
+        name={propName}
+        label={label}
+        value={data[propName]} //  value={data.propName}
+        autoFocus={autoFocus}
+        options={options}
+        error={errors[propName]} // error={errors.username}
+        onChange={this.handleChange} // KEY: hook into this onChange event handler
+      />
+    );
+  };
+}
 // note there is no render method because this component is for validation only
 
 export default Form;
