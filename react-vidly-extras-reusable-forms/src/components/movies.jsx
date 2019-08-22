@@ -1,12 +1,12 @@
 import React, { Component } from "react";
-import { getMovies } from "../services/fakeMovieService";
-import { getGenres } from "../services/fakeGenreService";
 import Pagination from "../common/pagination";
 import { paginate } from "../utils/pageSplicer";
 import ListGroup from "../common/listgroup";
 import MoviesTable from "../common/moviesTable";
 import _ from "lodash"; // used for sorting
 import { Link } from "react-router-dom";
+import { getMovies, deleteMovie } from "../services/fakeMovieService";
+import { getGenres } from "../services/fakeGenreService";
 
 class Movies extends Component {
   state = {
@@ -25,7 +25,11 @@ class Movies extends Component {
   }
 
   handleDelete = movie => {
-    const movies = this.state.movies.filter(mov => mov._id !== movie._id);
+    //const movies = this.state.movies.filter(mov => mov._id !== movie._id);
+
+    deleteMovie(movie._id);
+    const movies = getMovies();
+
     this.setState({ movies });
   };
 
@@ -125,7 +129,6 @@ class Movies extends Component {
     );
   }
 }
-//
 
 /* 
 ALTERNATIVE IS A BUTTON:

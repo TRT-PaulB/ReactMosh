@@ -56,6 +56,8 @@ class Form extends Component {
 
     if (errors) return;
 
+    // it is interesing that this can be implemented only at the subclass level
+    // ie. no need for empty doSubmit() function in this class
     this.doSubmit();
   };
 

@@ -57,11 +57,6 @@ class DisplayMovieForm extends Form {
   };
 
   doSubmit = () => {
-    //const { title } = this.state.data;
-    // this.state.data.title
-
-    console.log("saving to database (hopefully)");
-
     saveMovie(this.state.data);
     this.props.history.push("/movies");
   };
@@ -77,12 +72,7 @@ class DisplayMovieForm extends Form {
           {this.renderSelect("genreId", "Genre", false, this.state.genres)}
           {this.renderInput("numberInStock", "Number in Stock", false)}
           {this.renderInput("rate", "Rate", false)}
-          <button
-            className="btn btn-primary"
-            onClick={() => history.push("/movies")}
-          >
-            Save
-          </button>
+          {this.renderButton("Save")}
         </form>
       </React.Fragment>
     );
@@ -90,10 +80,3 @@ class DisplayMovieForm extends Form {
 }
 
 export default DisplayMovieForm;
-
-/*   
-ISSUES:
-
-submit button ius not blanked out because validation with Joi is not invoked..... but why?
-
-*/
