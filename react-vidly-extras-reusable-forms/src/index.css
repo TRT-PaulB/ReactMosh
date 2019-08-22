@@ -20,3 +20,7 @@ code {
 .clickable {
   cursor: pointer;
 }
+
+.selectwidthauto {
+  width: auto !important;
+}

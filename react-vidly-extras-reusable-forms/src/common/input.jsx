@@ -12,6 +12,8 @@ const Input = ({ name, label, error, ...rest }) => {
         id={name}
         name={name}
         className="form-control"
+        //class="input-medium"
+        //class="selectwidthauto"
         {...rest} //  when input properties are the same as the target prop name, use ...rest
       />
       {error && <div className="alert alert-danger">{error}</div>}
@@ -19,9 +21,13 @@ const Input = ({ name, label, error, ...rest }) => {
   );
 };
 
+// https://stackoverflow.com/questions/12066528/change-width-of-select-tag-in-twitter-bootstrap
+
 export default Input;
 
 // because these are word for word, can use {...rest} operator
 // type={type}
 //         value={value}
 //         onChange={onChange}
+
+// class="input-small"
