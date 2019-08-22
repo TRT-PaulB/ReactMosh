@@ -1,23 +1,27 @@
 import React, { Component } from "react";
 
-const Input = ({ name, label, value, error, onChange }) => {
+// WAS name, label, value, type, error, onChange
+// BUT use rest operator to get other properties from the rest object where they are identical
+const Input = ({ name, label, error, ...rest }) => {
+  // always include name, label and error...
   return (
     <div className="form-group">
       <label htmlFor={name}>{label}</label>
       <input
-        autoFocus
+        //autoFocus  (supply this as a boolean param)
         id={name}
         name={name}
-        type="text"
         className="form-control"
-        value={value}
-        onChange={onChange}
+        {...rest} //  when input properties are the same as the target prop name, use ...rest
       />
       {error && <div className="alert alert-danger">{error}</div>}
     </div>
   );
 };
 
-// note the use of conditional rendering
-
 export default Input;
+
+// because these are word for word, can use {...rest} operator
+// type={type}
+//         value={value}
+//         onChange={onChange}

@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import Joi from "joi";
+import Input from "./input";
 
 class Form extends Component {
   state = {
@@ -10,7 +11,7 @@ class Form extends Component {
   validateWithJoi = () => {
     // params:  binding object, validation definition
     const option = { abortEarly: false }; // ie do not terminate validation as soon as Joi finds an error
-    const result = Joi.validate(this.state.account, this.schema, option);
+    const result = Joi.validate(this.state.data, this.schema, option);
     if (!result.error) return null; // no Joi error
 
     const errors = {};
@@ -38,9 +39,9 @@ class Form extends Component {
     if (errorMsg) errors[input.name] = errorMsg;
     else delete errors[input.name];
 
-    const account = { ...this.state.account };
-    account[input.name] = input.value;
-    this.setState({ account, errors });
+    const data = { ...this.state.data };
+    data[input.name] = input.value;
+    this.setState({ data, errors });
   };
 
   handleSubmit = e => {
@@ -52,6 +53,29 @@ class Form extends Component {
     if (errors) return;
 
     this.doSubmit();
+  };
+
+  renderButton = label => {
+    return (
+      <button disabled={this.validateWithJoi()} className="btn btn-primary">
+        {label}
+      </button>
+    );
+  };
+
+  renderInput = (propName, label, autoFocus, type = "text") => {
+    const { data, errors } = this.state;
+    return (
+      <Input
+        type={type}
+        name={propName}
+        label={label}
+        value={data[propName]} //  value={data.propName}
+        onChange={this.handleChange}
+        error={errors[propName]} // error={errors.username}
+        autoFocus={autoFocus}
+      />
+    );
   };
 }
 
