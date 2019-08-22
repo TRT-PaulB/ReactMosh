@@ -8,6 +8,7 @@ class Form extends Component {
     errors: {}
   };
 
+  // JOI:  https://www.npmjs.com/package/joi
   validateWithJoi = () => {
     // params:  binding object, validation definition
     const option = { abortEarly: false }; // ie do not terminate validation as soon as Joi finds an error
