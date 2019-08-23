@@ -7,6 +7,7 @@ import _ from "lodash"; // used for sorting
 import { Link } from "react-router-dom";
 import { getMovies, deleteMovie } from "../services/fakeMovieService";
 import { getGenres } from "../services/fakeGenreService";
+import SearchBox from "./searchBox";
 
 class Movies extends Component {
   state = {
@@ -14,7 +15,9 @@ class Movies extends Component {
     genres: [],
     numItemsPerPage: 4,
     currentPage: 1,
-    sortColumn: { column: "title", order: "asc" }
+    sortColumn: { column: "title", order: "asc" },
+    searchQuery: "",
+    selectedGenre: null
   };
 
   // it will takle time to get movies and genres, so get runtime error if we try load page into dom without his data
@@ -45,12 +48,41 @@ class Movies extends Component {
     this.setState({ currentPage: page });
   };
 
+  // note: if the event came direct from built in select component,
+  //       the param would be e.  So:  const searchVal = e.currentTarget.value;
+  //       -> but we extract this in the Input wrapper, and then pass it up as a query parameter
+  handleSearch = query => {
+    console.log("handling asearch OK");
+    // disable filtering on (selectedGenre) if we are filtering on search (show page 1 of results)
+    this.setState({ selectedGenre: null, currentPage: 1, searchQuery: query });
+    // the query field (ie the search box value) is set in state to the searchQuery
+  };
+
+  // if filtering on the genre list, empty the search box field (do ot allow filtering on both)
   handleItemSelect = genre => {
-    this.setState({ selectedGenre: genre, currentPage: 1 });
+    this.setState({ selectedGenre: genre, currentPage: 1, searchQuery: "" });
+    // note this is a controlled component, so the searchQuery is set to an empty string, not to null
   };
 
   handleSorting = sortColumn => {
     this.setState({ sortColumn });
+  };
+
+  filterMovies = () => {
+    const { movies, selectedGenre, searchQuery } = this.state;
+
+    let filteredMovies = movies;
+    if (searchQuery) {
+      // NOTE searchQuery presumably returns false here if it is an empty string...
+      filteredMovies = movies.filter(m =>
+        m.title.toLowerCase().startsWith(searchQuery.toLowerCase())
+      );
+    } else if (selectedGenre && selectedGenre._id) {
+      filteredMovies = movies.filter(
+        movie => movie.genre._id === selectedGenre._id
+      );
+    }
+    return filteredMovies;
   };
 
   getPagedData = () => {
@@ -59,13 +91,11 @@ class Movies extends Component {
       currentPage,
       numItemsPerPage,
       selectedGenre,
-      sortColumn
+      sortColumn,
+      searchQuery
     } = this.state;
 
-    const filteredMovies =
-      selectedGenre && selectedGenre._id
-        ? movies.filter(movie => movie.genre._id === selectedGenre._id)
-        : movies;
+    let filteredMovies = this.filterMovies(searchQuery, selectedGenre);
 
     const sortedMovies = _.orderBy(
       filteredMovies,
@@ -85,11 +115,14 @@ class Movies extends Component {
       selectedGenre,
       currentPage,
       numItemsPerPage,
-      genres
+      genres,
+      searchQuery
     } = this.state;
+
     const { data: movies, totalCount } = this.getPagedData();
 
     if (moviesCount === 0) return <p>No movies in the database</p>;
+
     return (
       <div className="row">
         <div className="col-2">
@@ -111,6 +144,9 @@ class Movies extends Component {
             Create New Movie
           </Link>
           <p>Showing {totalCount} movies in the database</p>
+
+          <SearchBox value={searchQuery} onChange={this.handleSearch} />
+
           <MoviesTable
             movies={movies}
             onLike={this.handleLiked}
