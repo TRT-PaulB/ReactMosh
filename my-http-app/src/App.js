@@ -51,6 +51,7 @@ class App extends Component {
     const originalPosts = this.state.posts;
 
     // update optimistically (assuming the databasd action will be successful)
+    // persimistic updates are when the table is updated only after the database operation has returned successfully
     const posts = this.state.posts.filter(p => p.id !== post.id);
     this.setState({ posts });
 
@@ -60,6 +61,8 @@ class App extends Component {
     } catch (ex) {
       // database update has failed, so reset the state to the original content
       if (ex.response && ex.response.status === 404)
+        // if there is a response object with a status of 404 then it is an expected error
+        // expecerd error: display specific error msg   *(404 note found, 400 bad request)
         alert("This post has already been deleted.");
       this.setState({ posts: originalPosts });
     }
