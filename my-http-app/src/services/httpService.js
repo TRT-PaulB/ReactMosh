@@ -11,7 +11,8 @@ axios.interceptors.response.use(null, error => {
     error.response.status < 500;
 
   if (!expectedError) {
-    // unexpected error, so log and give a pleasant generic message
+    // INTERCEPTING AN UNEXPECTED ERROR, so log and give a pleasant generic message
+    // examples: no connectivity, server down, database down.....etc
     logger.log(error);
     toast.error("An unexpected error occurrred.");
   }

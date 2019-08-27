@@ -4,10 +4,8 @@ npm i axios
 npm i raven-js
 npm i react-toastify
 
-
-
-JSON webservice rest backend site: 
-Representational state transfer 
+JSON webservice rest backend site:
+Representational state transfer
 https://jsonplaceholder.typicode.com/
 https://jsonplaceholder.typicode.com/posts
 (see resources)
@@ -18,13 +16,18 @@ https://jsonplaceholder.typicode.com/posts
   ==> Axios
   ==> Fetch API
   ==> jQuery AJAX
- 
-Axios is much used: 
+
+Axios is much used:
 https://www.npmjs.com/package/axios
 
 - react is a lightweigth library for building users interfaces
-it only cares about rendering the view and managing the DOM
----
+  it only cares about rendering the view and managing the DOM
+
+  Axios is a lightweight HTTP client based on the \$http service within Angular.js v1.x
+  and similar to the Fetch API. Axios is promise-based and thus we can take advantage
+  of async and await for more readable asynchronous code.
+
+# ============================================================
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
