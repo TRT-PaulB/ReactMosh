@@ -68,29 +68,8 @@ https://github.com/mosh-hamedani/vidly-api-node
 
 - supply some sample data for the database:
   node seed.js
-  This runs the local script which populates mongo with some data
 
-  Needed to install mongoose:
-  npm install mongoose
-
-// /Users/paulbickell/.npm/\_logs/2019-08-27T11_36_53_418Z-debug.log
-FIXES NEEDED:
-
-- "bcrypt": "^1.0.3", = PACKAGE.JSON
-- brew install watchman
-  ##########################################
-  PROBLEMS:
-  require('bcrypt')
-
-"devDependencies": {
-"eslint-utils": ">=1.4.1"
-}
-
-https://stackoverflow.com/questions/34546272/cannot-find-module-bcrypt
-https://github.com/kelektiv/node.bcrypt.js/issues/509
-
-SPRING REST + REACT TUTORIAL:
-https://spring.io/guides/tutorials/react-and-spring-data-rest/
+##########################################
 
 ## react-vidly-extras-reusable-forms
 
