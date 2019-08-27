@@ -1,9 +1,19 @@
 import React, { Component } from "react";
+
+// import toastify for error messages which are better than the default browser dialog windows
+// used in <ToastContainer /> in the render() method
 import { ToastContainer } from "react-toastify";
-import http from "./services/httpService";
-import config from "./config.json";
 import "react-toastify/dist/ReactToastify.css";
+// notice the hook for this in httpService.js
+
+// note that http is not initiated anywhere, it just represents httpService.js
+// but could name it anything
+import http from "./services/httpService";
+
+import config from "./config.json";
 import "./App.css";
+
+// to use the logging service provider, Sentry, note the code in index.js
 
 class App extends Component {
   state = {
@@ -12,7 +22,7 @@ class App extends Component {
 
   // shortcut - cdm
   async componentDidMount() {
-    const { data: posts } = await http.get(config.apiEndpoint); // endpoint url
+    const { data: posts } = await http.get(config.apiEndpoint + "ot"); // endpoint url
     // response object has a data property (& headers, status etc), which can be destructured, and then renamed to posts
 
     // await...returns promise (ie holds the result of an asynchronous operation)
@@ -110,6 +120,10 @@ class App extends Component {
       </React.Fragment>
     );
   }
+
+  // render() {
+  //   return <button onClick={methodDoesNotExist}>Break the world</button>;
+  // }
 }
 
 export default App;

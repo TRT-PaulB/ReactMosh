@@ -27,6 +27,11 @@ https://www.npmjs.com/package/axios
   and similar to the Fetch API. Axios is promise-based and thus we can take advantage
   of async and await for more readable asynchronous code.
 
+Toastie - a red error box replacing the traditional error box displayed by browsers
+
+// SENTRY: nameski+Glossopcomby+finale
+https://sentry.io/welcome/
+
 # ============================================================
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
