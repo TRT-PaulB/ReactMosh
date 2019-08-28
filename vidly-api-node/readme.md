@@ -5,6 +5,7 @@ START UP VIDLY NODEJS BACKEND SERVER
 - make mongodb client compass connection
 - run mongod daeman in the background
 - start server in vidly-api-node: node index.js
+- http://localhost:3900/api/genres etc
 
 # =========================================================
 
@@ -35,15 +36,6 @@ lsof -i :3900
 Kill -9 [pid]
 "port": "3900",
 
-{
-"jwtPrivateKey": "unsecureKey",
-"db": "mongodb://vidly:vidly@1.0.0:27017",
-"port": "3900",
-"requiresAuth": true
-}
-
-http://localhost:3900/api/genres
-
 ## Introduction
 
 This project is the backend of Vidly, an imaginary video rental app. I've used Vidly as an example in several of my online programming courses, such as:
@@ -52,7 +44,7 @@ This project is the backend of Vidly, an imaginary video rental app. I've used V
 - https://codewithmosh.com/p/the-complete-node-js-course
 - https://codewithmosh.com/p/asp-net-mvc
 
-This is the implementation of Vidly in Node.js.
+This is the implementation of Vidly in Node.js. See package.jsn engines....
 
 ## Setup
 
