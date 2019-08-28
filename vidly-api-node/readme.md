@@ -6,6 +6,18 @@ START UP VIDLY NODEJS BACKEND SERVER
 - run mongod daeman in the background
 - start server in vidly-api-node: node index.js
 - http://localhost:3900/api/genres etc
+- postman
+
+--> note that default.json requiresAuth is switched to false (just for dev testing on the course)
+
+POST A NEW MOVIE:
+http://localhost:3900/api/movies
+{
+"title": "New Movie XYZ",
+"numberInStock": "10",
+"dailyRentalRate": "7",
+"genreId": "5d65131c6885934621be3b6c"
+}
 
 # =========================================================
 

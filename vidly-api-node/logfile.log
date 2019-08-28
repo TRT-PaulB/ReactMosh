@@ -140,3 +140,9 @@
 {"level":"info","message":"Listening on port 3900...","timestamp":"2019-08-28T14:18:45.451Z"}
 {"level":"info","message":"Listening on port 3900...","timestamp":"2019-08-28T14:25:34.051Z"}
 {"level":"info","message":"Connected to mongodb://127.0.0.1:27017/vidly...","timestamp":"2019-08-28T14:25:34.069Z"}
+{"level":"info","message":"Listening on port 3900...","timestamp":"2019-08-28T14:58:48.424Z"}
+{"level":"info","message":"Connected to mongodb://127.0.0.1:27017/vidly...","timestamp":"2019-08-28T14:58:48.442Z"}
+{"level":"info","message":"Listening on port 3900...","timestamp":"2019-08-28T15:02:53.223Z"}
+{"level":"info","message":"Connected to mongodb://127.0.0.1:27017/vidly...","timestamp":"2019-08-28T15:02:53.241Z"}
+{"level":"info","message":"Listening on port 3900...","timestamp":"2019-08-28T15:10:35.969Z"}
+{"level":"info","message":"Connected to mongodb://127.0.0.1:27017/vidly...","timestamp":"2019-08-28T15:10:35.986Z"}
