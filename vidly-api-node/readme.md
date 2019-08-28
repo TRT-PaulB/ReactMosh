@@ -28,9 +28,9 @@ npm install --save bcrypt@3.0.2
 
 MOSH FEEDBACK:
 https://forum.codewithmosh.com/d/280-geeting-errors-in-vidly-api-node-backend/17
-https://forum.codewithmosh.com/d/694-may-2019-summary-of-react-tutorial-vidly-node-deployment-fixes
 
 MAJOR ISSUE WAS TO FIX THE VERSION OF NODE.js to be used, see package.json.....
+https://forum.codewithmosh.com/d/694-may-2019-summary-of-react-tutorial-vidly-node-deployment-fixes
 
 lsof -i :3900
 Kill -9 [pid]
