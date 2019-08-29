@@ -9,7 +9,7 @@ const moviesEndpoint = apiUrl + "/movies";
 // function part the implentation detail for this module
 // so do not export it
 // notice it is invoked without the this keyword....
-function getMovieUrl(id) {
+function movieUrl(id) {
   // OLD  return moviesEndpoint + "/" + id;
   // NEW with ES6
   return `${moviesEndpoint}/${id}`;
@@ -20,11 +20,11 @@ export function getMovies() {
 }
 
 export function getMovie(id) {
-  return http.get(getMovieUrl(id));
+  return http.get(movieUrl(id));
 }
 
 export function deleteMovie(id) {
-  return http.delete(getMovieUrl(id));
+  return http.delete(movieUrl(id));
 }
 
 export function saveMovie(movie) {
@@ -42,7 +42,7 @@ export function saveMovie(movie) {
     // and don't directly modify the movie in state
     const body = { ...movie };
     delete body._id;
-    return http.put(getMovieUrl(movie._id), body);
+    return http.put(movieUrl(movie._id), body);
   }
 
   // movie is new, so post it
