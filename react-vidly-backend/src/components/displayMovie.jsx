@@ -2,7 +2,7 @@ import React from "react";
 import Joi from "joi";
 import Form from "../common/form";
 import { getMovie } from "../services/movieService";
-import { saveMovie } from "../services/fakeMovieService";
+import { saveMovie } from "../services/movieService";
 import { getGenres } from "../services/genreService";
 
 // const obj = { title: "hard coded data", body: "blar blar barl" };
@@ -38,15 +38,22 @@ class DisplayMovieForm extends Form {
       .label("Rate")
   };
 
-  componentDidMount = async () => {
+  async componentDidMount() {
+    await this.populateGenres();
+    await this.populateMovie();
+  }
+
+  async populateGenres() {
     const { data: genres } = await getGenres();
     this.setState({ genres });
+  }
 
-    const movieId = this.props.match.params.movieId; // coming in from the Route
-    if (movieId === "new") return; //...continue only to populate4 the form
-
-    //const movie = getMovie(movieId);
+  async populateMovie() {
+    //WAS const movie = getMovie(movieId);
     try {
+      const movieId = this.props.match.params.movieId; // coming in from the Route
+      if (movieId === "new") return; //...continue only to populate4 the form
+
       const { data: movie } = await getMovie(movieId);
       this.setState({ data: this.getMovieMap(movie) });
     } catch (e) {
@@ -54,16 +61,16 @@ class DisplayMovieForm extends Form {
         // note return keyword not necessary here...
         return this.props.history.replace("/not-found");
     }
+  }
 
-    // NEW const { data: movie } = await getMovie(movieId);
+  // NEW const { data: movie } = await getMovie(movieId);
 
-    // redirect if the movie coulod not be retrieved
-    // notice too that the return is required to stop this method executing beyond this line
-    //if (!movie) return this.props.history.replace("/not-found"); // remember replace deactivates the back button, push activates it
+  // redirect if the movie coulod not be retrieved
+  // notice too that the return is required to stop this method executing beyond this line
+  //if (!movie) return this.props.history.replace("/not-found"); // remember replace deactivates the back button, push activates it
 
-    // this.setState({ data: this.mapToViewModle(movie) });
-    // this.setState({ movie });
-  };
+  // this.setState({ data: this.mapToViewModle(movie) });
+  // this.setState({ movie });
 
   getMovieMap = movie => {
     return {
@@ -75,8 +82,8 @@ class DisplayMovieForm extends Form {
     };
   };
 
-  doSubmit = () => {
-    saveMovie(this.state.data);
+  doSubmit = async () => {
+    await saveMovie(this.state.data);
     this.props.history.push("/movies");
   };
 
