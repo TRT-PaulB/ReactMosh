@@ -38,7 +38,47 @@ http://localhost:3900/api/users
 "name": "nameXYZ"
 }
 
-1. register a new user
+- register a new user
+
+- logging in as a user requires webtoken
+  http://localhost:3900/api/auth
+  supply an existing email and password with this POST request
+  see vidly-api-node/routes/auth.js
+
+  client supplies valid user and pass to server, then if authentication
+  is configured, the server sends the JSON WEB TOKEN back to the browser
+  --> and then the client sends this authenticaion back to the server
+  --> server validates this
+  --> server then executes the client's request
+  test@tyest.com
+  user@user.com
+  usuuer@user.com
+  password
+
+- Store JSON webtocken on client and redirect onto homepage
+  store key value pairs in browser database: every browser has a db called 'local storage'
+  CHROME / Application / Local Storage
+  a token is stored for each 'domain'
+
+  login.doSubmit()
+
+  - create a new user in postman
+  - x-auth-token (with x- it is a custom header beyond normal http protocol)
+    but equallly this could go in the header
+    --> read header
+    --> extract toekn
+    --> store in local storage
+    --> redirect user
+
+LOOK IN vidly-api-node/routes/users.js
+--> after these changes, when registering a new user, note that
+registerForm.doSubmit(). response object, when written to the console, includes the x-auth-token
+
+In application tab of chrome, delete from local storage to test:
+
+- register a new user
+- look in movies page, and see that the user is automatically logged in
+  (because on the movies page a token exists on local storage)
 
 # =========================================================
 

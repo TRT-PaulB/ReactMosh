@@ -23,8 +23,15 @@ router.post("/", async (req, res) => {
   await user.save();
 
   const token = user.generateAuthToken();
+
+  // NOTE HERE!!!  x-auth-token
+  // access-control-expose-headers
+  //     lets the webserver whitelist the headers that the client browser is allowed to access
+  //     needs adding so that the client browser can read the custom header
+  // (alternatively could put the jwt into the json body)
   res
     .header("x-auth-token", token)
+    .header("access-control-expose-headers", "x-auth-token")
     .send(_.pick(user, ["_id", "name", "email"]));
 });
 

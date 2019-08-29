@@ -42,8 +42,22 @@ username: Joi.string().alphanum().min(3).max(30).required(),
     // this.state.data.password
     // this.state.data.name
     console.log("REGIS~TER USer = ");
+    try {
+      const response = await userService.registerUser(this.state.data);
+      console.log(response);
+      localStorage.setItem("token", response.headers["x-auth-token"]);
+      this.props.history.push("/");
+    } catch (e) {
+      if (e.response && e.response.status === 400) {
+        // ie we as the client, did something wrong
 
-    await userService.registerUser(this.state.data);
+        // pass in new error into the state
+        // see form.handleChange()
+        const errors = { ...this.state.errors };
+        errors.username = e.response.data;
+        this.setState({ errors });
+      }
+    }
   };
 
   render() {

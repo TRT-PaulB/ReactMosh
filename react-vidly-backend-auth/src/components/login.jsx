@@ -2,6 +2,8 @@ import React from "react";
 import Joi from "joi";
 import Form from "../common/form";
 
+import { login } from "../services/authService";
+
 class LoginForm extends Form {
   state = {
     data: { username: "", password: "" },
@@ -17,8 +19,25 @@ class LoginForm extends Form {
       .label("Password")
   };
 
-  doSubmit = () => {
-    console.log("save to the database");
+  doSubmit = async () => {
+    try {
+      const { username, password } = this.state.data;
+
+      // print out the JSON WEB TOKEN from response.data
+      const { data: jwt } = await login(username, password);
+      localStorage.setItem("token", jwt);
+      console.log(jwt);
+
+      this.props.history.push("/");
+    } catch (e) {
+      if (e.response && e.response.status === 400) {
+        //  && e.response.status === 400
+        //return this.props.history.replace("/not-found");
+        const errors = { ...this.state.errors };
+        errors.username = e.response.data; // puts the error against username only
+        this.setState({ errors });
+      }
+    }
   };
 
   render() {
