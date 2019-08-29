@@ -1,8 +1,15 @@
 import React from "react";
 import Joi from "joi";
 import Form from "../common/form";
-import { getMovie, saveMovie } from "../services/fakeMovieService";
-import { getGenres } from "../services/fakeGenreService";
+import { getMovie } from "../services/movieService";
+import { saveMovie } from "../services/fakeMovieService";
+import { getGenres } from "../services/genreService";
+
+// const obj = { title: "hard coded data", body: "blar blar barl" };
+// const { data: post } = await http.post(config.apiEndpoint, obj);
+
+// const posts = [post, ...this.state.posts];
+// this.setState({ posts });
 
 class DisplayMovieForm extends Form {
   state = {
@@ -31,22 +38,34 @@ class DisplayMovieForm extends Form {
       .label("Rate")
   };
 
-  componentDidMount = () => {
-    this.setState({ genres: getGenres() });
+  componentDidMount = async () => {
+    const { data: genres } = await getGenres();
+    this.setState({ genres });
 
     const movieId = this.props.match.params.movieId; // coming in from the Route
     if (movieId === "new") return; //...continue only to populate4 the form
 
-    const movie = getMovie(movieId);
+    //const movie = getMovie(movieId);
+    try {
+      const { data: movie } = await getMovie(movieId);
+      this.setState({ data: this.getMovieMap(movie) });
+    } catch (e) {
+      if (e.response && e.response.status === 404)
+        // note return keyword not necessary here...
+        return this.props.history.replace("/not-found");
+    }
+
+    // NEW const { data: movie } = await getMovie(movieId);
 
     // redirect if the movie coulod not be retrieved
     // notice too that the return is required to stop this method executing beyond this line
-    if (!movie) return this.props.history.replace("/not-found"); // remember replace deactivates the back button, push activates it
+    //if (!movie) return this.props.history.replace("/not-found"); // remember replace deactivates the back button, push activates it
 
-    this.setState({ data: this.getMovie(movie) });
+    // this.setState({ data: this.mapToViewModle(movie) });
+    // this.setState({ movie });
   };
 
-  getMovie = movie => {
+  getMovieMap = movie => {
     return {
       _id: movie._id,
       title: movie.title,

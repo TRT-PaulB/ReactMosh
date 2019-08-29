@@ -10,6 +10,16 @@ export function getMovies() {
   return http.get(moviesEndpoint);
 }
 
+export function getMovie(id) {
+  return http.get(moviesEndpoint + "/" + id);
+}
+
 export function deleteMovie(id) {
   return http.delete(moviesEndpoint + "/" + id);
 }
+
+// router.put("/:id", [auth], async (req, res) => {
+// export function saveMovie(id) {
+//   const saveMovieEndpoint = moviesEndpoint + "/" + id;
+//   return http.post(saveMovieEndpoint, obj);
+// }
