@@ -36,11 +36,14 @@ username: Joi.string().alphanum().min(3).max(30).required(),
 
 */
 
-  doSubmit = () => {
-    const { username, password, name } = this.state.data;
+  doSubmit = async () => {
+    // const { username, password, name } = this.state.data;
     // this.state.data.username
     // this.state.data.password
     // this.state.data.name
+    console.log("REGIS~TER USer = ");
+
+    await userService.registerUser(this.state.data);
   };
 
   render() {
