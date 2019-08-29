@@ -5,9 +5,12 @@ import ListGroup from "../common/listgroup";
 import MoviesTable from "../common/moviesTable";
 import _ from "lodash"; // used for sorting
 import { Link } from "react-router-dom";
-import { getMovies, deleteMovie } from "../services/fakeMovieService";
-import { getGenres } from "../services/fakeGenreService";
+import { getMovies, deleteMovie } from "../services/movieService";
+import { getGenres } from "../services/genreService";
 import SearchBox from "./searchBox";
+
+// note this different from the import for Toastify element
+import { toast } from "react-toastify";
 
 class Movies extends Component {
   state = {
@@ -22,18 +25,32 @@ class Movies extends Component {
 
   // it will takle time to get movies and genres, so get runtime error if we try load page into dom without his data
   // componentDidMount() is triggered when loading the DOM
-  componentDidMount() {
-    const genres = [{ _id: "", name: "All Genres" }, ...getGenres()];
-    this.setState({ movies: getMovies(), genres }); // ie {genres: genres}
+  async componentDidMount() {
+    // get the data destructured from the response object promise
+    const { data } = await getGenres();
+    //const genres = [{ _id: "", name: "All Genres" }, ...getGenres()];
+    const genres = [{ _id: "", name: "All Genres" }, ...data];
+
+    const { data: movies } = await getMovies();
+
+    this.setState({ movies, genres }); // ie {genres: genres}
   }
 
-  handleDelete = movie => {
-    //const movies = this.state.movies.filter(mov => mov._id !== movie._id);
+  handleDelete = async movie => {
+    // could apply an optimistic update here:
+    const origMovies = this.state.movies;
 
-    deleteMovie(movie._id);
-    const movies = getMovies();
-
+    const movies = origMovies.filter(mov => mov._id !== movie._id);
     this.setState({ movies });
+
+    try {
+      await deleteMovie(movie._id);
+    } catch (e) {
+      if (e.response && e.response.status === 404) {
+        toast.error("This movie has already been deleted");
+      }
+      this.setState({ movies: origMovies });
+    }
   };
 
   handleLiked = movie => {

@@ -19,6 +19,9 @@ http://localhost:3900/api/movies
 "genreId": "5d65131c6885934621be3b6c"
 }
 
+GET GENRE:
+http://localhost:3900/api/genres
+
 # =========================================================
 
 RESOURCE:
