@@ -9,6 +9,7 @@ import RegisterForm from "./components/registerForm";
 import NotFound from "./components/notFound";
 import DisplayMovieForm from "./components/displayMovie";
 import "./App.css";
+import jwtDecode from "jwt-decode";
 
 // new for vidly backend: npm react-toastify and axios
 // and plugin the toast container markup
@@ -16,11 +17,26 @@ import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
 class App extends Component {
+  state = {};
+
+  componentDidMount() {
+    try {
+      const jwt = localStorage.getItem("token");
+      const user = jwtDecode(jwt);
+
+      // note iat is the time it was generated
+      console.log(user);
+      this.setState({ user });
+    } catch (e) {
+      // do nothing here......just means it is an authorization error
+    }
+  }
+
   render() {
     return (
       <React.Fragment>
         <ToastContainer />
-        <NavBar />
+        <NavBar user={this.state.user} />
         <div className="content">
           <Switch>
             <Route path="/login" exact component={LoginForm} />

@@ -28,7 +28,13 @@ class LoginForm extends Form {
       localStorage.setItem("token", jwt);
       console.log(jwt);
 
-      this.props.history.push("/");
+      //this.props.history.push("/");
+      // choose to do a full reload of the application....
+      // this means that App.componentDidMount() will be loaded again
+      // and this means that a valid token will be retrieved from storage
+      // TEST THIS:  delete exising token, then log in with valid email on login page,
+      //             then without the application reload the login will appear logged out
+      window.location = "/";
     } catch (e) {
       if (e.response && e.response.status === 400) {
         //  && e.response.status === 400

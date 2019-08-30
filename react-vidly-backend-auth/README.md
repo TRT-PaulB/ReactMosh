@@ -2,8 +2,8 @@
 
 START UP VIDLY NODEJS BACKEND SERVER
 
-- make mongodb client compass connection
 - run mongod daeman in the background
+- make mongodb client compass connection
 - start server in vidly-api-node: node index.js
 - http://localhost:3900/api/genres etc
 - postman
@@ -79,6 +79,37 @@ In application tab of chrome, delete from local storage to test:
 - register a new user
 - look in movies page, and see that the user is automatically logged in
   (because on the movies page a token exists on local storage)
+
+---
+
+In Summary:
+==> login.jsx doSubmit()
+put response.data from the login post into local storage and then redirect to home screen
+localStorage.setItem("token", jwt);
+const { data: jwt } = await login(username, password);
+this.props.history.push("/");
+
+==> registerForm.jsx
+put the response from reghister user form into a header, and redirect to login
+const response = await userService.registerUser(this.state.data);
+localStorage.setItem("token", response.headers["x-auth-token"]);
+this.props.history.push("/");
+
+---
+
+Paste the JWT into JWT IO: / debugger
+
+- note that this can decrypt the values
+- the bit secret only exists on the server
+
+==> read toekn in App.js
+need decoder: npm i jwt-decode
+
+In App.componentDidMount()
+notice that if you delete the token from chrome/application,
+then refresh the movies page, it crashes...
+...so wrap jwtDecode in try catch block and do nothing, as the scenario is simply that there is no
+valid JSON object
 
 # =========================================================
 
