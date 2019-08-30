@@ -10,6 +10,7 @@ import RegisterForm from "./components/registerForm";
 import NotFound from "./components/notFound";
 import DisplayMovieForm from "./components/displayMovie";
 import "./App.css";
+import ProtectedRoute from "./components/protectedRoute";
 //import jwtDecode from "jwt-decode";
 
 // new for vidly backend: npm react-toastify and axios
@@ -63,13 +64,9 @@ class App extends Component {
 
             <Route path="/not-found" component={NotFound} />
 
-            <Route
+            <ProtectedRoute
               path="/movies/:movieId?"
-              exact
-              render={props => {
-                if (!user) return <Redirect to="/login" />;
-                return <DisplayMovieForm {...props} />;
-              }}
+              component={DisplayMovieForm}
             />
 
             <Redirect to="/not-found" />
@@ -83,3 +80,14 @@ class App extends Component {
 export default App;
 
 // note: could also use <div className="content">
+
+/*  ORIGINAL PRE-EXTRACTING to ProtectedRoute
+<Route
+              path="/movies/:movieId?"
+              exact
+              render={props => {
+                if (!user) return <Redirect to="/login" />;
+                return <DisplayMovieForm {...props} />;
+              }}
+            />
+            */

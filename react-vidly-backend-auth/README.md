@@ -173,6 +173,8 @@ typing in the url to circumvent protections
 - but now, cannot go straight to the url either: http://localhost:3000/movies/new
 - redirected to login page
 
+--> create a route wrapper to repeat protection logic.....
+
 # =========================================================
 
 ##
