@@ -111,6 +111,24 @@ then refresh the movies page, it crashes...
 ...so wrap jwtDecode in try catch block and do nothing, as the scenario is simply that there is no
 valid JSON object
 
+---
+
+- calling protected api endpoints
+  endpoints which require the user to be logged in and potentially ave certain permissions
+
+  -> stop vidly-api-node
+  -> see default.json for project credentials in vidly-api-node
+  -> set requires auth back on, so the user has to login to C(R)UD a movie
+  -> restart the server: node index.js
+  -> 401 unauthorized - means api endpoint required the client to send a JSON webtoken,
+  but the client did not send it
+  (when trying to edit the film and save - see chrome network tab)
+  -> go to httpService.js
+  -> see axios.defaults.headers.common line
+  ++> Finally,
+  note that the app now works nicely again provided the user is logged in.
+  I guess we need to deactivate the links on the movie title if the user is not logged in
+
 # =========================================================
 
 ##

@@ -153,3 +153,5 @@
 {"level":"info","message":"Connected to mongodb://127.0.0.1:27017/vidly...","timestamp":"2019-08-29T15:40:39.409Z"}
 {"level":"info","message":"Listening on port 3900...","timestamp":"2019-08-30T07:28:56.494Z"}
 {"level":"info","message":"Connected to mongodb://127.0.0.1:27017/vidly...","timestamp":"2019-08-30T07:28:56.513Z"}
+{"level":"info","message":"Listening on port 3900...","timestamp":"2019-08-30T10:26:57.852Z"}
+{"level":"info","message":"Connected to mongodb://127.0.0.1:27017/vidly...","timestamp":"2019-08-30T10:26:57.870Z"}

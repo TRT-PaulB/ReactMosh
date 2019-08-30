@@ -1,6 +1,13 @@
 import axios from "axios";
 import logger from "./logService";
+//import auth from "./authService";
 import { toast } from "react-toastify";
+
+// if user is not logged in, x-auth-token will be undefined
+// and header will not be set
+// note this can be tested by setting vidly-api-node/default.json to true...
+// axios.defaults.headers.common["x-auth-token"] = auth.getJwt();
+// MOVED TO setJwt() below - to avoid bidriectional dependencies (bettween http and auth services)
 
 // simply by adding this interceptor we can intercept the request
 // included here for portability
@@ -31,10 +38,15 @@ axios.interceptors.response.use(null, error => {
   return Promise.reject(error);
 });
 
+export function setJwt(jwt) {
+  axios.defaults.headers.common["x-auth-token"] = jwt;
+}
+
 // wraps which implementation of httpService to use
 export default {
   get: axios.get,
   post: axios.post,
   put: axios.put,
-  delete: axios.delete
+  delete: axios.delete,
+  setJwt
 };
