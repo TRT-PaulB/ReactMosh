@@ -1,7 +1,7 @@
 import React from "react";
 import Joi from "joi";
 import Form from "../common/form";
-
+import { Redirect } from "react-router-dom";
 import auth from "../services/authService";
 
 class LoginForm extends Form {
@@ -36,7 +36,10 @@ class LoginForm extends Form {
 
       // notice the await keyword here...
       await auth.login(username, password);
-      window.location = "/";
+
+      // see the redirected state could be set in protectedRoute.jsx
+      const { state } = this.props.location;
+      window.location = state ? state.from.pathname : "/";
     } catch (e) {
       if (e.response && e.response.status === 400) {
         //  && e.response.status === 400
@@ -49,6 +52,8 @@ class LoginForm extends Form {
   };
 
   render() {
+    if (auth.getCurentUser()) return <Redirect to="/" />;
+
     return (
       <React.Fragment>
         <h1>Login</h1>

@@ -175,6 +175,36 @@ typing in the url to circumvent protections
 
 --> create a route wrapper to repeat protection logic.....
 
+---
+
+Type in react Router documnetation
+https://reacttraining.com/react-router/core/api/MemoryRouter/initialindex-number
+
+see example with pathname, search and state
+SET: protectedRoute.jsx
+USED: login.jsx
+
+So, if not logged in, clicking on movie redirects to he login page, and then
+logging in subsequently redirects back the very same page to update the movie (ie movies list page)
+
+FINAL ISSUE:
+currently logged ion, but can still go to:
+http://localhost:3000/login
+--> better to redirect user to the home 'movies' page
+see login.render()
+note redirect is used instead of window.location = "/"; , because there is no reason to reload the whole
+application (this is done when user is trying to login, so app is remounted and inright state
+in terms of knowing the current user)
+
+---
+
+show the delete button only if the user is both logged in, and has an admin role
+user@user.com
+password
+
+in moviesTable.jsx, only add delete button into the array if user is an admin
+note how the constructor is called before render.......so hook in here
+
 # =========================================================
 
 ##

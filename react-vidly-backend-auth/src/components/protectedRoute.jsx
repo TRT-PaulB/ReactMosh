@@ -13,7 +13,17 @@ const ProtectedRoute = ({ path, component: Component, render, ...rest }) => {
       {...rest}
       exact
       render={props => {
-        if (!auth.getCurentUser()) return <Redirect to="/login" />;
+        console.log(props); // note the history, location and match components (from Router)
+        if (!auth.getCurentUser())
+          // see login.jsx form component
+          return (
+            <Redirect
+              to={{
+                pathname: "/login",
+                state: { from: props.location }
+              }}
+            />
+          );
         return Component ? <Component {...props} /> : render(props);
       }}
     />
@@ -21,3 +31,8 @@ const ProtectedRoute = ({ path, component: Component, render, ...rest }) => {
 };
 
 export default ProtectedRoute;
+
+// WAS ORIG:
+// if (!auth.getCurentUser()) return <Redirect to="/login" />;
+// overwriting this performs the redirection, but also keeps in mind the location where the user last was,
+// so that when logging in on request, the user is redirected back to page they were trying to complete

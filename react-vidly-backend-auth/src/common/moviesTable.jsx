@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import Like from "./like";
 import Table from "./table";
+import auth from "../services/authService";
 import { Link } from "react-router-dom";
 
 // INPUT INTERFACE
@@ -33,21 +34,31 @@ class MoviesTable extends Component {
           movie={movie}
         />
       )
-    },
-    {
-      key: "delete",
-      content: movie => (
-        <button
-          onClick={() => this.props.onDelete(movie)}
-          className="btn btn-danger btn-sm"
-          movie={movie}
-        >
-          Delete{" "}
-        </button>
-      )
     }
+
     // use to provide a key on a blank header, ie for delete
   ];
+
+  deleteColumn = {
+    key: "delete",
+    content: movie => (
+      <button
+        onClick={() => this.props.onDelete(movie)}
+        className="btn btn-danger btn-sm"
+        movie={movie}
+      >
+        Delete{" "}
+      </button>
+    )
+  };
+
+  constructor() {
+    super(); // always call the constructor parent class
+
+    // note user could also be passed down from props, but cleaner to get it this way...
+    const user = auth.getCurentUser();
+    if (user && user.isAdmin) this.columns.push(this.deleteColumn);
+  }
 
   // use generic components where possible, and avoid having mixed layers of abstraction
   render() {
