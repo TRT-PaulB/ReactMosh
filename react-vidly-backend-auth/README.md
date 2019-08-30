@@ -50,9 +50,8 @@ http://localhost:3900/api/users
   --> and then the client sends this authenticaion back to the server
   --> server validates this
   --> server then executes the client's request
-  test@tyest.com
+
   user@user.com
-  usuuer@user.com
   password
 
 - Store JSON webtocken on client and redirect onto homepage
@@ -149,6 +148,30 @@ jwt.io will now show the isAdmin field and the app respons accordingly (and can 
 Note that the digital signature is based on the content of the payload of the token.
 So once that is changed, then the digital signature will be regenerated, and to do that
 it needs the private key (which is stored on the server)
+
+ADMIN USER:
+user@user.com
+password
+
+Movies:
+
+- hide New Movie button, delete button, or link on title if the user is not logged in
+  or does not have certain permissions
+
+  In App.js, see the updated route to movies....
+  render={props => <Movies {...props} />}
+  props is important because it includes history, match etc .....and other that we use when routing
+  .. then use this in movies.render() method
+
+---
+
+Protecting Routes
+in App.js, note changes to DisplayMovieForm to prevent user from just
+typing in the url to circumvent protections
+
+- already can create a new movie only if logged in (because you see the button)
+- but now, cannot go straight to the url either: http://localhost:3000/movies/new
+- redirected to login page
 
 # =========================================================
 

@@ -41,6 +41,7 @@ class App extends Component {
   }
 
   render() {
+    const { user } = this.state;
     return (
       <React.Fragment>
         <ToastContainer />
@@ -52,13 +53,25 @@ class App extends Component {
             <Route path="/register" exact component={RegisterForm} />
             <Route path="/customers" exact component={Customers} />
             <Route path="/rentals" exact component={Rentals} />
-            <Route path="/movies" exact component={Movies} />
+            <Route
+              path="/movies"
+              exact
+              render={props => <Movies {...props} user={user} />}
+            />
 
             <Redirect from="/" exact to="/movies" />
 
             <Route path="/not-found" component={NotFound} />
 
-            <Route path="/movies/:movieId?" component={DisplayMovieForm} />
+            <Route
+              path="/movies/:movieId?"
+              exact
+              render={props => {
+                if (!user) return <Redirect to="/login" />;
+                return <DisplayMovieForm {...props} />;
+              }}
+            />
+
             <Redirect to="/not-found" />
           </Switch>
         </div>
