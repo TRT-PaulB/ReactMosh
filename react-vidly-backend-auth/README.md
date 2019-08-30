@@ -129,6 +129,27 @@ valid JSON object
   note that the app now works nicely again provided the user is logged in.
   I guess we need to deactivate the links on the movie title if the user is not logged in
 
+AUTHROIZATION
+
+vidly-api-node/routes/movies.js
+delete method
+look in middleware/auth.js
+--> see this is where the requiresAuth property is used
+--> now look at middleware/admin.js which checks that user has admin privileges
+
+node.js handles this...........
+for now update mongodb
+-> set to edit
+--> isAdmin = true ==> boolean
+--> now logout and log back in for the object to be read with the extra property, isAdmin...
+jwt.io will now show the isAdmin field and the app respons accordingly (and can delete)
+==> deactivate title links if the user is not logged in
+==> need to handle this better so a non-admin user cannot see the delete button
+
+Note that the digital signature is based on the content of the payload of the token.
+So once that is changed, then the digital signature will be regenerated, and to do that
+it needs the private key (which is stored on the server)
+
 # =========================================================
 
 ##

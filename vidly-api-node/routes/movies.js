@@ -64,6 +64,8 @@ router.put("/:id", [auth], async (req, res) => {
   res.send(movie);
 });
 
+// for this to work, make sure requester is authenticated and has admin privileges
+// this is a middleware function
 router.delete("/:id", [auth, admin], async (req, res) => {
   const movie = await Movie.findByIdAndRemove(req.params.id);
 
