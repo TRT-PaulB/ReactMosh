@@ -1,6 +1,7 @@
 import React from "react";
 import Joi from "joi";
 import Form from "../common/form";
+import auth from "../services/authService";
 
 //import { register } from "../services/userService";
 // BETTER syntax for importing all functions from userService.js
@@ -41,12 +42,14 @@ username: Joi.string().alphanum().min(3).max(30).required(),
     // this.state.data.username
     // this.state.data.password
     // this.state.data.name
-    console.log("REGIS~TER USer = ");
     try {
       const response = await userService.registerUser(this.state.data);
       console.log(response);
-      localStorage.setItem("token", response.headers["x-auth-token"]);
-      this.props.history.push("/");
+
+      // WAS !!!! localStorage.setItem("token", response.headers["x-auth-token"]);
+      auth.loginWithJwt(response.headers["x-auth-token"]);
+      window.location = "/";
+      //this.props.history.push("/");
     } catch (e) {
       if (e.response && e.response.status === 400) {
         // ie we as the client, did something wrong

@@ -2,7 +2,7 @@ import React from "react";
 import Joi from "joi";
 import Form from "../common/form";
 
-import { login } from "../services/authService";
+import auth from "../services/authService";
 
 class LoginForm extends Form {
   state = {
@@ -24,9 +24,8 @@ class LoginForm extends Form {
       const { username, password } = this.state.data;
 
       // print out the JSON WEB TOKEN from response.data
-      const { data: jwt } = await login(username, password);
-      localStorage.setItem("token", jwt);
-      console.log(jwt);
+      // const { data: jwt } = await login(username, password);
+      // localStorage.setItem("token", jwt);
 
       //this.props.history.push("/");
       // choose to do a full reload of the application....
@@ -34,6 +33,9 @@ class LoginForm extends Form {
       // and this means that a valid token will be retrieved from storage
       // TEST THIS:  delete exising token, then log in with valid email on login page,
       //             then without the application reload the login will appear logged out
+
+      // notice the await keyword here...
+      await auth.login(username, password);
       window.location = "/";
     } catch (e) {
       if (e.response && e.response.status === 400) {
