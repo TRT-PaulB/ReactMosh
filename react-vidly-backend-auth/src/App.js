@@ -5,6 +5,7 @@ import Rentals from "./components/rentals";
 import NavBar from "./common/navbar";
 import Movies from "./components/movies";
 import LoginForm from "./components/login";
+import Logout from "./components/logout";
 import RegisterForm from "./components/registerForm";
 import NotFound from "./components/notFound";
 import DisplayMovieForm from "./components/displayMovie";
@@ -40,6 +41,7 @@ class App extends Component {
         <div className="content">
           <Switch>
             <Route path="/login" exact component={LoginForm} />
+            <Route path="/logout" exact component={Logout} />
             <Route path="/register" exact component={RegisterForm} />
             <Route path="/customers" exact component={Customers} />
             <Route path="/rentals" exact component={Rentals} />
