@@ -21,6 +21,17 @@ library.add(faHeartBroken);
 // see https://github.com/FortAwesome/react-fontawesome
 // FONT AWESOME [end]
 
+// deployment
+// process represents the current process
+// env is the environment variables (set in .env files for directly from terminal)
+// values are set when performing npm start
+console.log(process.env);
+
+// select bundle.js in Chrome / Sources:
+// console / sources, // localhost / static / js / bundle.js
+// notice this comes out as dev content
+console.log("SUPERMAN", process.env.REACT_APP_NAME);
+
 ReactDOM.render(
   <BrowserRouter>
     <App />
