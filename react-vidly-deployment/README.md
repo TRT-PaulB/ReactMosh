@@ -104,6 +104,42 @@ From mongoDB Atlas,get db connection string:
 mongodb+srv://dbPaul:[PASSWORD]@vidly-4g6rs.mongodb.net/test?retryWrites=true&w=majority
 
 IN A PRD ENVIRONMENT ALWAYS USE ENVIRONMENT VARIABLES to avoid hard coding and hackers:
+mongodb+srv://dbPaul:<password>@vidly-4g6rs.mongodb.net/test?retryWrites=true&w=majority
+
+heroku config:set vidly_db=[connection string with substituted password]
+mongodb+srv://dbPaul:<password>@vidly-4g6rs.mongodb.net/test?retryWrites=true&w=majority
+
+heroku config:set vidly_db=mongodb+srv://dbPaul:dbPaul12345!@vidly-4g6rs.mongodb.net/test?retryWrites=true&w=majority
+
+Note common folder conventions:
+vidly-api-node
+--> custom-environment-variables.json
+--> default.json
+--> test.json
+
+note that we set env variable 'vidly_db' inside the terminal.
+so append: "db": "vidly_db"
+in custom-environment-variables.json
+
+Deploy by staging and commiting all the changes.
+Then: git push heroku master
+
+NOTE DEPLOYMENT TROUBLESHOOTING:
+https://devcenter.heroku.com/articles/troubleshooting-node-deploys
+
+-----> Installing binaries
+remote: engines.node (package.json): 8.4.0
+remote: engines.npm (package.json): unspecified (use default)
+remote:  
+remote: Resolving node version 8.4.0...
+remote: Downloading and installing node 8.4.0...
+remote: Using default npm version: 5.3.0
+
+node 8.4.0... LOCAL: v12.8.0
+npm version: 5.3.0 LOCAL: 6.11.2
+
+==> DEPLOYMENT PROBLEMS STATED AROUND Deployment ch7,
+probably a result of these version differences...
 
 # =========================================================
 
