@@ -7,6 +7,7 @@ START UP VIDLY NODEJS BACKEND SERVER
 - start server in vidly-api-node: node index.js
 - http://localhost:3900/api/genres etc
 - postman
+- run front end app: npm start
 
 --> note that default.json requiresAuth is switched to false (just for dev testing on the course)
 
