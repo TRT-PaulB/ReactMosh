@@ -7,12 +7,6 @@ export const stations = [
   { _id: "5b21ca3eeb7f6fbccd471820", name: "Oxford Circus" }
 ];
 
-//export const stations =
-// { _id: "5b21ca3eeb7f6fbccd4yuyuu", name: "East Putney" },
-// { _id: "5b21ca3eeb7f6fbccdqqqqqq", name: "Wimbledon" },
-// { _id: "5b21ca3eeb7f6fbceeeeeeee", name: "Oxford Circus" }
-//["Ford", "BMW", "Fiat"];
-
 export function getStations() {
   return stations.filter(g => g);
 }
@@ -27,6 +21,16 @@ export function getRouteInfo(start, destination) {
     currRouteStart: start,
     currRouteDest: destination,
     successfulLastSearch: true,
-    routeInfo: "\\nStart  Aldgate East\\nEnd    Blackfriars\\n"
+    routeInfo: "\nStart  Aldgate East\nEnd    Blackfriars\n"
   };
 }
+
+/*
+{“routeInfo”:
+“\nStart  Aldgate East\n
+End    Blackfriars\n
+From Aldgate East take the District to Blackfriars for 5 stops.\n
+Changes = 0\n
+Total stops = 5”
+}
+*/

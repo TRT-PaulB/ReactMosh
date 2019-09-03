@@ -11,15 +11,17 @@ class Form extends Component {
 
   // JOI:  https://www.npmjs.com/package/joi
   validateWithJoi = () => {
-    console.log("validating with joi");
-
     // params:  binding object, validation definition
     const option = { abortEarly: false }; // ie do not terminate validation as soon as Joi finds an error
     const result = Joi.validate(this.state.data, this.schema, option);
-    if (!result.error) return null; // no Joi error
 
+    console.log("validating with joi TTTT = " + result.error);
+
+    if (!result.error) return null; // no Joi error
+    console.log("vPPPPPP = ");
     const errors = {};
     for (let item of result.error.details) {
+      console.log("MSG = ", item.message);
       errors[item.path] = item.message; // creates an errors map / array of different paths (ie. property names)
     }
 
@@ -86,6 +88,9 @@ class Form extends Component {
 
   renderSelect = (propName, label, autoFocus, options) => {
     const { data, errors } = this.state;
+
+    console.log("propname " + propName + ": ", data[propName]);
+    //console.log("DATA = ", data);
     return (
       <Select
         name={propName}

@@ -2,8 +2,6 @@ import Form from "../common/form";
 import React, { Component } from "react";
 import { getStations, getRouteInfo } from "../services/routePlannerService";
 import Joi from "joi";
-import { getGenres } from "../services/genreService";
-
 class RoutePlanner extends Form {
   state = {
     data: {
@@ -20,10 +18,14 @@ class RoutePlanner extends Form {
     _id: Joi.string(),
     start: Joi.string()
       .required()
+      .default("<Select>")
       .label("Start"),
     destination: Joi.string()
       .required()
-      .label("Destination")
+      .default("<Select>")
+      .label("Destination"),
+    routeInfo: Joi.string(),
+    successfulLastSearch: Joi.boolean()
   };
 
   async componentDidMount() {
@@ -65,8 +67,10 @@ class RoutePlanner extends Form {
     return (
       <React.Fragment>
         <h1>Route Planner screen</h1>
+
         <form onSubmit={this.handleSubmit}>
           {this.renderSelect("start", "Start", false, this.state.stations)}
+
           {this.renderSelect(
             "destination",
             "Destination",
@@ -74,7 +78,9 @@ class RoutePlanner extends Form {
             this.state.stations
           )}
 
-          {this.renderButton("Save")}
+          {this.renderButton("Find Route Options")}
+
+          {this.renderInput("routeInfo", "", false)}
         </form>
       </React.Fragment>
     );
