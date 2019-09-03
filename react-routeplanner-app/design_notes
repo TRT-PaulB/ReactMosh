@@ -14,3 +14,13 @@
      --> searching	 
   - Admin  
   --> what about internationalization in react?
+
+
+RouteQuery (apparently a duplicate of JourneySummary)
+--> currRouteStart
+--> currRouteDest
+--> successfulLastSearch
+--> routeInfo
+
+ 
+ 

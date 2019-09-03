@@ -5,10 +5,7 @@ import LoginForm from "./components/login";
 import Logout from "./components/logout";
 import RegisterForm from "./components/registerForm";
 import NotFound from "./components/notFound";
-import "./App.css";
 import ProtectedRoute from "./components/protectedRoute";
-import { ToastContainer } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
 import auth from "./services/authService";
 import RoutePlanner from "./components/routePlanner";
 import ViewBasket from "./components/viewBasket";
@@ -17,6 +14,9 @@ import ContactDetails from "./components/contactDetails";
 import PaymentDetails from "./components/paymentDetails";
 import SaleConfirmation from "./components/saleConfirmation";
 import AdminCorner from "./components/adminCorner";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import "./App.css";
 
 class App extends Component {
   state = {};
