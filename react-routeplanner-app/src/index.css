@@ -53,6 +53,9 @@ span.input-group-addon {
   margin: 0 0 0 150px !important;
 }
 
-.level2-content {
-  margin: 0 0 0 150px !important;
+.dataBox {
+  background-color: #ffffcc;
+  border: solid 1px black;
+  width: 55%;
+  padding: 15px;
 }

@@ -22,6 +22,17 @@ START UP MVC ROUTEPLANNER SHELL APP
 
 ---
 
+Shopping
+==> User
+==> Basket --> CONTAINS: list of tickets
+==> Order --> CONTAINS: PaymentInfo, COntactDetails, Basket
+==> Purchase --> CONTAINS: order, transactionDate
+
+-----And-----
+Ticket --> CONTAINS: passengerType, travelDate, ticketType, routeQuery
+
+---
+
 margin-left: 150px !important;
 margin: 0 0 0 150px !important;
 

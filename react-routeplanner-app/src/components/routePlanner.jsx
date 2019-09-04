@@ -2,8 +2,8 @@ import Form from "../common/form";
 import React, { Component } from "react";
 import {
   getStations,
-  getRouteInfo,
-  registerUser
+  getRouteInfo
+  //registerUser
 } from "../services/routePlannerService";
 import Joi from "joi";
 
@@ -66,6 +66,8 @@ class RoutePlanner extends Form {
   };
 
   handleProceedToPurchase = () => {
+    const { start, destination } = this.state.data;
+
     console.log("start = ", this.state.data.start);
     console.log("destination = ", this.state.data.destination);
     console.log("route info = ", this.state.routeInfo);
@@ -73,18 +75,19 @@ class RoutePlanner extends Form {
 
     // EITHER PERSIST THIS ROUTE QUERY registerUser(routeQuery)  OR   PUT IN SESSION
 
-    // this.props.history.push("/route_planner");
+    //this.props.history.push("/view_basket");
+    window.location = "/view_basket/" + start + "/" + destination + "";
   };
 
   render() {
     const { match, history } = this.props;
-    const { routeInfo } = this.state;
+    const { routeInfo, successfulLastSearch } = this.state;
 
     return (
       <React.Fragment>
         <form onSubmit={this.handleSubmit} className="main-content">
           <div className="lower-space">
-            <h1 className="main-content">Find Route Screen</h1>
+            <h1>Find Route Screen</h1>
           </div>
           {this.renderSelect(
             "start",
@@ -104,11 +107,19 @@ class RoutePlanner extends Form {
           <div className="col">{this.renderButton("Find Route")}</div>
         </form>
 
-        <div className="level2-content">
-          {this.renderTextArea("routeInfo", "", false, "80%", "12", routeInfo)}
+        <div className="main-content">
+          {this.renderReadOnlyTextArea(
+            "routeInfo",
+            "",
+            false,
+            "80%",
+            "12",
+            routeInfo
+          )}
           <button
             className="btn btn-primary"
             onClick={this.handleProceedToPurchase}
+            disabled={!successfulLastSearch}
           >
             Purchase Ticket
           </button>

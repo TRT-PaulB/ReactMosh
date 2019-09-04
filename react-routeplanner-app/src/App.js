@@ -38,7 +38,11 @@ class App extends Component {
             <Route path="/logout" exact component={Logout} />
             <Route path="/register" exact component={RegisterForm} />
             <Route path="/route_planner" exact component={RoutePlanner} />
-            <Route path="/view_basket" exact component={ViewBasket} />
+            <Route
+              path="/view_basket/:start/:destination?"
+              exact
+              component={ViewBasket}
+            />
             <Route path="/admin_corner" exact component={AdminCorner} />
             <ProtectedRoute
               path="/purchase_history"

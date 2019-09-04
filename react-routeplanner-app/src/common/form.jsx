@@ -64,9 +64,9 @@ class Form extends Component {
     this.doSubmit();
   };
 
-  renderButton = label => {
+  renderButton = (label, classname = "btn btn-primary") => {
     return (
-      <button disabled={this.validateWithJoi()} className="btn btn-primary">
+      <button disabled={this.validateWithJoi()} className={classname}>
         {label}
       </button>
     );
@@ -87,7 +87,7 @@ class Form extends Component {
     );
   };
 
-  renderTextArea = (propName, label, autoFocus, width, rows, value) => {
+  renderReadOnlyTextArea = (propName, label, autoFocus, width, rows, value) => {
     const { data, errors } = this.state;
     return (
       <TextArea
@@ -101,8 +101,6 @@ class Form extends Component {
       />
     );
   };
-  // value={data[propName]}
-  // error={errors[propName]}
 
   renderSelect = (propName, label, autoFocus, options, width) => {
     const { data, errors } = this.state;
