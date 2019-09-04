@@ -1,16 +1,21 @@
 import Form from "../common/form";
 import React, { Component } from "react";
-import { getStations, getRouteInfo } from "../services/routePlannerService";
+import {
+  getStations,
+  getRouteInfo,
+  registerUser
+} from "../services/routePlannerService";
 import Joi from "joi";
+
 class RoutePlanner extends Form {
   state = {
     data: {
       start: "",
-      destination: "",
-      successfulLastSearch: true,
-      routeInfo: ""
+      destination: ""
     },
     stations: [],
+    successfulLastSearch: false,
+    routeInfo: "",
     errors: {}
   };
 
@@ -18,20 +23,14 @@ class RoutePlanner extends Form {
     _id: Joi.string(),
     start: Joi.string()
       .required()
-      // .default("<Select>")
       .label("Start"),
     destination: Joi.string()
       .required()
-      // .default("<Select>")
-      .label("Destination"),
-    routeInfo: Joi.string(),
-    successfulLastSearch: Joi.boolean()
+      .label("Destination")
   };
 
   async componentDidMount() {
     this.populateStations();
-    // later along these lines:  await this.populateGenres();
-    this.populateRouteQuery("startzz", "destzz");
   }
 
   async populateStations() {
@@ -40,9 +39,7 @@ class RoutePlanner extends Form {
 
   populateRouteQuery(start, destination) {
     const routeData = getRouteInfo(start, destination);
-    //const data = this.generateRoutePlannerMap(routeData);
-    //this.setState({ data });
-    this.setState({ data: this.generateRoutePlannerMap(routeData) });
+    return this.generateRoutePlannerMap(routeData);
   }
 
   generateRoutePlannerMap(routeQuery) {
@@ -55,20 +52,40 @@ class RoutePlanner extends Form {
     };
   }
 
+  // SEE BELOW for later implementation
   doSubmit = () => {
-    console.log("submitting form data");
+    const { start, destination } = this.state.data;
 
-    this.props.history.push("/route_planner");
+    // dummy data here
+    const routeQuery = this.populateRouteQuery(start, destination);
+
+    this.setState({
+      routeInfo: routeQuery.routeInfo,
+      successfulLastSearch: routeQuery.successfulLastSearch
+    });
+  };
+
+  handleProceedToPurchase = () => {
+    console.log("start = ", this.state.data.start);
+    console.log("destination = ", this.state.data.destination);
+    console.log("route info = ", this.state.routeInfo);
+    console.log("successful last search = ", this.state.successfulLastSearch);
+
+    // EITHER PERSIST THIS ROUTE QUERY registerUser(routeQuery)  OR   PUT IN SESSION
+
+    // this.props.history.push("/route_planner");
   };
 
   render() {
     const { match, history } = this.props;
-    console.log("STATE ROUTE INFO = ", this.state.data);
+    const { routeInfo } = this.state;
+
     return (
       <React.Fragment>
-        <h1 className="main-content">Find Route Screen</h1>
-
         <form onSubmit={this.handleSubmit} className="main-content">
+          <div className="lower-space">
+            <h1 className="main-content">Find Route Screen</h1>
+          </div>
           {this.renderSelect(
             "start",
             "Start",
@@ -84,15 +101,56 @@ class RoutePlanner extends Form {
             "300px"
           )}
 
-          <div className="col">{this.renderButton("Find Route Options")}</div>
-
-          {this.renderTextArea("routeInfo", "", false, "80%", "12")}
-
-          <div className="col">{this.renderButton("Purchase Ticket")}</div>
+          <div className="col">{this.renderButton("Find Route")}</div>
         </form>
+
+        <div className="level2-content">
+          {this.renderTextArea("routeInfo", "", false, "80%", "12", routeInfo)}
+          <button
+            className="btn btn-primary"
+            onClick={this.handleProceedToPurchase}
+          >
+            Purchase Ticket
+          </button>
+        </div>
       </React.Fragment>
     );
   }
 }
 
 export default RoutePlanner;
+
+// NOTES:
+// doSubmit = async () => {
+//   // const { username, password, name } = this.state.data;
+//   // this.state.data.username
+//   // this.state.data.password
+//   // this.state.data.name
+//   try {
+//     const response = await userService.registerUser(this.state.data);
+//     console.log(response);
+
+//     // WAS !!!! localStorage.setItem("token", response.headers["x-auth-token"]);
+//     auth.loginWithJwt(response.headers["x-auth-token"]);
+//     window.location = "/";
+//     //this.props.history.push("/");
+//   } catch (e) {
+//     if (e.response && e.response.status === 400) {
+//       // ie we as the client, did something wrong
+
+//       // pass in new error into the state
+//       // see form.handleChange()
+//       const errors = { ...this.state.errors };
+//       errors.username = e.response.data;
+//       this.setState({ errors });
+//     }
+//   }
+// };
+
+// CALL SERVICE TO POST:
+// export function registerUser(user) {
+//   return http.post(usersEndpoint, {
+//     email: user.username,
+//     password: user.password,
+//     name: user.name
+//   });

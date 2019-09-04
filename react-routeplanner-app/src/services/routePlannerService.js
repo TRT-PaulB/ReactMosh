@@ -1,10 +1,13 @@
-//import http from "./httpService";
-//import { apiUrl } from "../config.json";
+import http from "./httpService";
+import { apiUrl } from "../config.json";
+
+const routeQueryEndpoint = apiUrl + "/route";
 
 export const stations = [
-  { _id: "5b21ca3eeb7f6fbccd471818", name: "East Putney" },
-  { _id: "5b21ca3eeb7f6fbccd471814", name: "Wimbledon" },
-  { _id: "5b21ca3eeb7f6fbccd471820", name: "Oxford Circus" }
+  // note the _id maps to key in teh select/option/key
+  { _id: "Farringdon", name: "Farringdon" },
+  { _id: "Oxford Circus", name: "Oxford Circus" },
+  { _id: "Mile End", name: "Mile End" }
 ];
 
 export function getStations() {
@@ -15,22 +18,24 @@ export const result = {
   routeInfo: "\\nStart  Aldgate East\\nEnd    Blackfriars\\n"
 };
 
+// this is  GET REST request
 export function getRouteInfo(start, destination) {
+  // Supply some dummy data for now!!!!
   return {
     _id: "ouo7895t7fg",
     currRouteStart: start,
     currRouteDest: destination,
     successfulLastSearch: true,
-    routeInfo: "\nStart  Aldgate East\nEnd    Blackfriars\n"
+    routeInfo:
+      "Start:  Aldgate East\nEnd:    Blackfriars\nFrom Aldgate East take the District to Blackfriars for 5 stops.\nChanges = 0\nTotal stops = 5"
   };
 }
 
-/*
-{“routeInfo”:
-“\nStart  Aldgate East\n
-End    Blackfriars\n
-From Aldgate East take the District to Blackfriars for 5 stops.\n
-Changes = 0\n
-Total stops = 5”
+// this is  POST REST request
+export function registerUser(routeQuery) {
+  // return http.post(routeQueryEndpoint, {
+  //   currRouteStart: routeQuery.start,
+  //   currRouteDest: routeQuery.destination,
+  //   routeInfo: routeQuery.routeInfo
+  // });
 }
-*/

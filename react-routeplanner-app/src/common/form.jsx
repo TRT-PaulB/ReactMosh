@@ -16,13 +16,13 @@ class Form extends Component {
     const option = { abortEarly: false }; // ie do not terminate validation as soon as Joi finds an error
     const result = Joi.validate(this.state.data, this.schema, option);
 
-    console.log("validating with joi TTTT = " + result.error);
+    //console.log("validating with joi TTTT = " + result.error);
 
     if (!result.error) return null; // no Joi error
-    console.log("vPPPPPP = ");
+    //console.log("vPPPPPP = ");
     const errors = {};
     for (let item of result.error.details) {
-      console.log("MSG = ", item.message);
+      //console.log("MSG = ", item.message);
       errors[item.path] = item.message; // creates an errors map / array of different paths (ie. property names)
     }
 
@@ -87,26 +87,27 @@ class Form extends Component {
     );
   };
 
-  renderTextArea = (propName, label, autoFocus, width, rows) => {
+  renderTextArea = (propName, label, autoFocus, width, rows, value) => {
     const { data, errors } = this.state;
     return (
       <TextArea
         name={propName}
         label={label}
-        value={data[propName]}
         onChange={this.handleChange}
-        error={errors[propName]}
         autoFocus={autoFocus}
         width={width}
         rows={rows}
+        value={value}
       />
     );
   };
+  // value={data[propName]}
+  // error={errors[propName]}
 
   renderSelect = (propName, label, autoFocus, options, width) => {
     const { data, errors } = this.state;
 
-    console.log("propname " + propName + ": ", data[propName]);
+    // console.log("propname " + propName + ": ", data[propName]);
     return (
       <Select
         name={propName}

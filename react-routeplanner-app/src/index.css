@@ -12,6 +12,10 @@ body {
   margin-bottom: 30px;
 }
 
+.lower-space {
+  margin-bottom: 15px;
+}
+
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace;
@@ -46,5 +50,9 @@ span.input-group-addon {
 }
 
 .main-content {
+  margin: 0 0 0 150px !important;
+}
+
+.level2-content {
   margin: 0 0 0 150px !important;
 }

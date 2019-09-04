@@ -2,7 +2,7 @@ import React from "react";
 import { NavLink, Link } from "react-router-dom";
 
 const NavBar = ({ user }) => {
-  console.log("user = " + user);
+  //console.log("user = " + user);
 
   return (
     <nav className="navbar navbar-expand-lg navbar-light bg-light">
