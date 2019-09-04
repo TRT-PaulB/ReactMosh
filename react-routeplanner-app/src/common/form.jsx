@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import Joi from "joi";
 import Input from "./input";
 import Select from "./select";
+import TextArea from "./textArea";
 
 class Form extends Component {
   state = {
@@ -86,13 +87,30 @@ class Form extends Component {
     );
   };
 
-  renderSelect = (propName, label, autoFocus, options) => {
+  renderTextArea = (propName, label, autoFocus, width, rows) => {
+    const { data, errors } = this.state;
+    return (
+      <TextArea
+        name={propName}
+        label={label}
+        value={data[propName]}
+        onChange={this.handleChange}
+        error={errors[propName]}
+        autoFocus={autoFocus}
+        width={width}
+        rows={rows}
+      />
+    );
+  };
+
+  renderSelect = (propName, label, autoFocus, options, width) => {
     const { data, errors } = this.state;
 
     console.log("propname " + propName + ": ", data[propName]);
     return (
       <Select
         name={propName}
+        width={width}
         label={label}
         value={data[propName]} //  value={data.propName}
         autoFocus={autoFocus}

@@ -66,21 +66,29 @@ class RoutePlanner extends Form {
     console.log("STATE ROUTE INFO = ", this.state.data);
     return (
       <React.Fragment>
-        <h1>Route Planner screen</h1>
+        <h1 className="main-content">Find Route Screen</h1>
 
-        <form onSubmit={this.handleSubmit}>
-          {this.renderSelect("start", "Start", false, this.state.stations)}
-
+        <form onSubmit={this.handleSubmit} className="main-content">
+          {this.renderSelect(
+            "start",
+            "Start",
+            false,
+            this.state.stations,
+            "300px"
+          )}
           {this.renderSelect(
             "destination",
             "Destination",
             false,
-            this.state.stations
+            this.state.stations,
+            "300px"
           )}
 
-          {this.renderButton("Find Route Options")}
+          <div className="col">{this.renderButton("Find Route Options")}</div>
 
-          {this.renderInput("routeInfo", "", false)}
+          {this.renderTextArea("routeInfo", "", false, "80%", "12")}
+
+          <div className="col">{this.renderButton("Purchase Ticket")}</div>
         </form>
       </React.Fragment>
     );

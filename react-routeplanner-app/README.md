@@ -12,14 +12,18 @@ START UP VIDLY NODEJS BACKEND SERVER
 START UP MVC ROUTEPLANNER SHELL APP
 
 - ./mvnw spring-boot:run
-- localhost:8080/routeplanner/login
 - start MySQL database and ensure admin user is saved
   mysql -u USERNAME -p
   credentials: root/JR123!
   db: new_routeplanner_shopping
 - populate with user and user_role data
+- localhost:8080/routeplanner/login
+  login: Paul / password
 
 ---
+
+margin-left: 150px !important;
+margin: 0 0 0 150px !important;
 
 CREATE NEW ADMIN USER:
 insert into user (id, active, email, last_name, password, name) values (1, 1, 'home.paul47@gmail.com', 'Smith', 'password', 'Paul' );
