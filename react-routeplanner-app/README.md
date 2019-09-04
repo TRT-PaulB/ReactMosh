@@ -33,6 +33,11 @@ Ticket --> CONTAINS: passengerType, travelDate, ticketType, routeQuery
 
 ---
 
+<div className="row">
+          <div className="col-2"></div>
+          <div className="col"></div>
+        </div>
+
 margin-left: 150px !important;
 margin: 0 0 0 150px !important;
 
