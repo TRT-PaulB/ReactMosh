@@ -90,7 +90,6 @@ class Form extends Component {
     const { data, errors } = this.state;
 
     console.log("propname " + propName + ": ", data[propName]);
-    //console.log("DATA = ", data);
     return (
       <Select
         name={propName}

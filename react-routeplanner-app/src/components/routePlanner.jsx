@@ -18,11 +18,11 @@ class RoutePlanner extends Form {
     _id: Joi.string(),
     start: Joi.string()
       .required()
-      .default("<Select>")
+      // .default("<Select>")
       .label("Start"),
     destination: Joi.string()
       .required()
-      .default("<Select>")
+      // .default("<Select>")
       .label("Destination"),
     routeInfo: Joi.string(),
     successfulLastSearch: Joi.boolean()

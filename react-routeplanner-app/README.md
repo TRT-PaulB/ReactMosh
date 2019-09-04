@@ -9,6 +9,29 @@ START UP VIDLY NODEJS BACKEND SERVER
 - postman
 - run front end app: npm start
 
+START UP MVC ROUTEPLANNER SHELL APP
+
+- ./mvnw spring-boot:run
+- localhost:8080/routeplanner/login
+- start MySQL database and ensure admin user is saved
+  mysql -u USERNAME -p
+  credentials: root/JR123!
+  db: new_routeplanner_shopping
+- populate with user and user_role data
+
+---
+
+CREATE NEW ADMIN USER:
+insert into user (id, active, email, last_name, password, name) values (1, 1, 'home.paul47@gmail.com', 'Smith', 'password', 'Paul' );
+insert into user_role (user_id, roles_id) values (1, 3);
+
+--> name / password: Paul / password
+select u.\*, r.role from user u inner join user_role ur on ur.user_id = u.id inner join role r on r.id = ur.roles_id;
+
+---
+
+---
+
 --> note that default.json requiresAuth is switched to false (just for dev testing on the course)
 
 POST A NEW MOVIE:
