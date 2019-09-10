@@ -27,17 +27,17 @@ class ContactDetails extends Form {
 
   schema = {
     _id: Joi.string(),
-    title: Joi.string().required(),
-    fullname: Joi.string().required(),
-    addressLine1: Joi.string().required(),
-    addressLine2: Joi.string().required(),
-    addressLine1: Joi.string().required(),
-    city: Joi.string().required(),
-    region: Joi.string().required(),
-    country: Joi.string().required(),
-    mobile: Joi.string().required(),
-    homeTel: Joi.string().required(),
-    email: Joi.string().required()
+    title: Joi.string(), //.required(),
+    fullname: Joi.string(), //.required(),
+    addressLine1: Joi.string(), //.required(),
+    addressLine2: Joi.string(), //.required(),
+    addressLine1: Joi.string(), //.required(),
+    city: Joi.string(), //.required(),
+    region: Joi.string(), //.required(),
+    country: Joi.string(), //.required(),
+    mobile: Joi.string(), //.required(),
+    homeTel: Joi.string(), //.required(),
+    email: Joi.string() //.required()
   };
 
   async componentDidMount() {}

@@ -16,8 +16,6 @@ class Form extends Component {
     const option = { abortEarly: false }; // ie do not terminate validation as soon as Joi finds an error
     const result = Joi.validate(this.state.data, this.schema, option);
 
-    //console.log("validating with joi TTTT = " + result.error);
-
     if (!result.error) return null; // no Joi error
     //console.log("vPPPPPP = ");
     const errors = {};
@@ -30,12 +28,12 @@ class Form extends Component {
   };
 
   validateProperty = ({ name, value }) => {
-    // use compouted properties in ES6
-    // const obj = { [name]: value }; // name of input property supplied dynamically
-    // const schema = { [name]: this.schema[name] };
-    // const { error } = Joi.validate(obj, schema); // note we want to abort early, so as not to display all errors at once
-    // // if there is an error on this input component, return the first error details string
-    // return error ? error.details[0].message : null;
+    //use compouted properties in ES6
+    const obj = { [name]: value }; // name of input property supplied dynamically
+    const schema = { [name]: this.schema[name] };
+    const { error } = Joi.validate(obj, schema); // note we want to abort early, so as not to display all errors at once
+    // if there is an error on this input component, return the first error details string
+    return error ? error.details[0].message : null;
   };
 
   handleChange = ({ currentTarget: input }) => {
