@@ -31,12 +31,11 @@ class Form extends Component {
 
   validateProperty = ({ name, value }) => {
     // use compouted properties in ES6
-    const obj = { [name]: value }; // name of input property supplied dynamically
-    const schema = { [name]: this.schema[name] };
-    const { error } = Joi.validate(obj, schema); // note we want to abort early, so as not to display all errors at once
-
-    // if there is an error on this input component, return the first error details string
-    return error ? error.details[0].message : null;
+    // const obj = { [name]: value }; // name of input property supplied dynamically
+    // const schema = { [name]: this.schema[name] };
+    // const { error } = Joi.validate(obj, schema); // note we want to abort early, so as not to display all errors at once
+    // // if there is an error on this input component, return the first error details string
+    // return error ? error.details[0].message : null;
   };
 
   handleChange = ({ currentTarget: input }) => {

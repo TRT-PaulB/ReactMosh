@@ -30,11 +30,21 @@ code {
 }
 
 .form-inline {
-  width: 95%;
+  width: 80%;
+}
+
+.form-label-right {
+  text-align: right;
+  font-weight: bold;
+  width: 100% !important;
 }
 
 .form-group {
-  width: 90%;
+  width: 50%;
+}
+
+.semi-form-group {
+  width: 20%;
 }
 
 .input-group {
@@ -42,7 +52,7 @@ code {
 }
 
 .form-control {
-  width: 50% !important;
+  width: 90% !important;
 }
 
 span.input-group-addon {
@@ -58,4 +68,8 @@ span.input-group-addon {
   border: solid 1px black;
   width: 55%;
   padding: 15px;
+}
+
+.broadForm {
+  width: 75%;
 }
